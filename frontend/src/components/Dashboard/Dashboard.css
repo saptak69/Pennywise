@@ -133,12 +133,11 @@
 
 .timer-number {
   font-size: 52px;
-  font-weight: 800;
-  color: var(--text-primary);
+  font-weight: 900;
+  color: #000000;
   letter-spacing: -2px;
-  background: linear-gradient(135deg, var(--text-primary) 50%, var(--accent-success) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: none;
+  -webkit-text-fill-color: initial;
   line-height: 1;
 }
 
@@ -191,13 +190,15 @@
 }
 
 .income-bar .bar-fill-glow {
-  background: linear-gradient(0deg, rgba(16, 185, 129, 0.1) 0%, var(--accent-success) 100%);
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
+  background: #00e676 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: none !important;
 }
 
 .expense-bar .bar-fill-glow {
-  background: linear-gradient(0deg, rgba(239, 68, 68, 0.1) 0%, var(--accent-danger) 100%);
-  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);
+  background: #ef4444 !important;
+  border: 2px solid #000000 !important;
+  box-shadow: none !important;
 }
 
 .reservoir-center {
@@ -212,11 +213,11 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.02) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+  box-shadow: 3px 3px 0px 0px #000000 !important;
   margin-bottom: 8px;
 }
 
@@ -226,7 +227,7 @@
   left: 0;
   width: 200%;
   height: 50%;
-  background: rgba(16, 185, 129, 0.3);
+  background: #00e676 !important;
   border-radius: 38% 42% 40% 40%;
   animation: wave-float 6s infinite linear;
 }
@@ -245,7 +246,7 @@
 .core-val {
   font-size: 12px;
   font-weight: 800;
-  color: var(--accent-success);
+  color: #000000 !important;
 }
 
 /* Space Budget Containment Reactor Core */
@@ -301,34 +302,35 @@
 
 .reactor-meter-track {
   flex: 1;
-  height: 12px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-glass);
-  border-radius: 6px;
+  height: 18px;
+  background: #ffffff !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
   position: relative;
   overflow: hidden;
 }
 
 .reactor-meter-fill {
   height: 100%;
-  border-radius: 6px;
+  border-radius: 0 !important;
+  border-right: 2px solid #000000 !important;
   transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 .reactor-meter-fill.safe {
-  background: linear-gradient(90deg, var(--accent-success) 0%, #047857 100%);
-  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+  background: #00e676 !important;
+  box-shadow: none !important;
 }
 
 .reactor-meter-fill.warning {
-  background: linear-gradient(90deg, var(--accent-warning) 0%, #b45309 100%);
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
+  background: #ffd166 !important;
+  box-shadow: none !important;
 }
 
 .reactor-meter-fill.exceeded {
-  background: linear-gradient(90deg, var(--accent-danger) 0%, #be123c 100%);
-  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+  background: #ef4444 !important;
+  box-shadow: none !important;
 }
 
 .reactor-pulse-glow {
@@ -355,11 +357,12 @@
 
 .reactor-status-msg {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 800;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-glass);
+  background: #ffffff !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
 }
 
 .status-critical { color: var(--accent-danger); }
@@ -369,11 +372,11 @@
 /* Budget Card */
 .budget-card-glass {
   background: var(--bg-glass);
-  border: 1px solid var(--border-glass);
+  border: 3px solid #000000 !important;
   border-radius: var(--radius-md);
   padding: 24px;
   margin-bottom: 30px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 5px 5px 0px 0px #000000 !important;
 }
 
 .budget-card-header {
@@ -402,7 +405,7 @@
 
 .budget-input-glass {
   background: #ffffff;
-  border: 1px solid var(--border-glass);
+  border: 3px solid #000000 !important;
   color: var(--text-primary);
   padding: 8px 12px;
   border-radius: var(--radius-sm);
@@ -413,23 +416,23 @@
 
 .budget-input-glass:focus {
   outline: none;
-  border-color: var(--accent-success);
+  border-color: #000000;
 }
 
 .btn-sm-primary, .btn-sm-secondary {
   padding: 8px 14px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 800;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  border: 3px solid #000000 !important;
   transition: var(--transition-all);
 }
 
 .btn-sm-primary {
-  background: var(--accent-success) !important;
-  color: white !important;
-  border: none !important;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2) !important;
+  background: #00e676 !important;
+  color: #000000 !important;
+  box-shadow: 2px 2px 0px 0px #000000 !important;
 }
 
 .btn-sm-primary:hover {
@@ -492,13 +495,15 @@
   padding: 14px 18px;
   border-radius: var(--radius-sm);
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 2px solid #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
   transition: var(--transition-all);
 }
 
 .recent-item:hover {
-  background: var(--bg-secondary);
-  border-color: var(--border-glass);
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
+  background: #ffffff !important;
 }
 
 .item-left {
@@ -514,16 +519,17 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
+  border: 2px solid #000000 !important;
 }
 
 .item-icon-circle.income {
-  background: rgba(16, 185, 129, 0.08);
-  color: var(--accent-success);
+  background: #00e676;
+  color: #000000;
 }
 
 .item-icon-circle.expense {
-  background: rgba(239, 68, 68, 0.08);
-  color: var(--accent-danger);
+  background: #ef4444;
+  color: #000000;
 }
 
 .item-details {
@@ -533,7 +539,7 @@
 
 .item-desc {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 2px;
 }
@@ -542,6 +548,7 @@
   font-size: 12px;
   color: var(--text-secondary);
   text-transform: capitalize;
+  font-weight: 700;
 }
 
 .item-right {
@@ -553,15 +560,16 @@
 
 .item-amount {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 900;
 }
 
-.item-amount.income { color: var(--accent-success); }
-.item-amount.expense { color: var(--accent-danger); }
+.item-amount.income { color: #00e676; -webkit-text-stroke: 1px #000; }
+.item-amount.expense { color: #ef4444; -webkit-text-stroke: 1px #000; }
 
 .item-date {
   font-size: 11px;
   color: var(--text-muted);
+  font-weight: 700;
 }
 
 /* Insights Card */
@@ -572,8 +580,9 @@
 }
 
 .insight-bubble {
-  background: rgba(16, 185, 129, 0.05);
-  border: 1px solid rgba(16, 185, 129, 0.1);
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
   padding: 16px;
   border-radius: var(--radius-sm);
   display: flex;
@@ -582,7 +591,7 @@
 }
 
 .insight-icon {
-  color: var(--accent-success);
+  color: #000000 !important;
   margin-top: 2px;
   flex-shrink: 0;
 }

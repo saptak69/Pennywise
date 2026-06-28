@@ -114,18 +114,20 @@
   flex: 1;
   min-width: 130px;
   background: #ffffff;
-  border: 1px solid var(--border-glass);
+  border: 2px solid #000000 !important;
   color: var(--text-primary);
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   outline: none;
   font-size: 14px;
+  font-weight: 700;
   transition: var(--transition-all);
 }
 
 .filter-select:focus {
-  border-color: var(--accent-success);
+  border-color: #000000 !important;
+  box-shadow: 2px 2px 0px 0px #000000 !important;
 }
 
 /* Transaction List Item styling */
@@ -140,15 +142,16 @@
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 2px solid #000000 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
   padding: 16px 20px;
   border-radius: var(--radius-md);
   transition: var(--transition-all);
 }
 
 .transaction-list-item:hover {
-  background: var(--bg-secondary);
-  border-color: rgba(16, 185, 129, 0.2);
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
 }
 
 .item-left-desc {
@@ -164,18 +167,17 @@
   width: 42px;
   height: 42px;
   border-radius: var(--radius-sm);
+  border: 2px solid #000000 !important;
 }
 
 .item-badge-icon.income {
-  background: rgba(16, 185, 129, 0.08);
-  color: var(--accent-success);
-  border: 1px solid rgba(16, 185, 129, 0.15);
+  background: #00e676;
+  color: #000000;
 }
 
 .item-badge-icon.expense {
-  background: rgba(239, 68, 68, 0.08);
-  color: var(--accent-danger);
-  border: 1px solid rgba(239, 68, 68, 0.15);
+  background: #ef4444;
+  color: #000000;
 }
 
 .item-primary-info {
@@ -186,7 +188,7 @@
 
 .item-title-text {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
@@ -196,15 +198,17 @@
   gap: 8px;
   font-size: 12px;
   color: var(--text-secondary);
+  font-weight: 700;
 }
 
 .badge-tag-recurring {
-  background: rgba(16, 185, 129, 0.12);
-  color: #047857;
+  background: #ffffff !important;
+  border: 1px solid #000000 !important;
+  color: #000000 !important;
   padding: 1px 6px;
   border-radius: 4px;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -223,15 +227,16 @@
 
 .amount-text-val {
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 900;
 }
 
-.amount-text-val.income { color: var(--accent-success); }
-.amount-text-val.expense { color: var(--accent-danger); }
+.amount-text-val.income { color: #00e676; -webkit-text-stroke: 1px #000; }
+.amount-text-val.expense { color: #ef4444; -webkit-text-stroke: 1px #000; }
 
 .date-text-val {
   font-size: 11px;
   color: var(--text-muted);
+  font-weight: 700;
 }
 
 .btn-icon-delete {
@@ -262,19 +267,21 @@
 }
 
 .btn-page-nav {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-glass);
-  color: var(--text-primary);
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  box-shadow: 2px 2px 0px 0px #000000 !important;
   padding: 8px 16px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 800;
   transition: var(--transition-all);
 }
 
 .btn-page-nav:hover:not(:disabled) {
-  background: #cbd5e1;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
 }
 
 .btn-page-nav:disabled {
@@ -285,4 +292,5 @@
 .page-indicator {
   font-size: 14px;
   color: var(--text-secondary);
+  font-weight: 700;
 }
