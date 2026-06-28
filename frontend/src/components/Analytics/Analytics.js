@@ -174,7 +174,7 @@ function Analytics() {
   return (
     <div>
       <div style={{ marginBottom: '30px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 700 }}>Analytics</h1>
+        <h1 className="gradient-title" style={{ fontSize: '28px' }}>Analytics Deck</h1>
         <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Visual charts representing your spending patterns</p>
       </div>
 

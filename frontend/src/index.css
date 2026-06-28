@@ -358,7 +358,7 @@ button, input, select, textarea {
 }
 
 /* Glass panel glow-ups */
-.glass-panel, .stat-card, .section-glass, .budget-card-glass, .auth-card-glass, .goal-card-glass, .transaction-form-panel, .transaction-list-panel, .sidebar-glass {
+.glass-panel, .stat-card, .section-glass, .budget-card-glass, .auth-card-glass, .goal-card-glass, .transaction-form-panel, .transaction-list-panel, .sidebar-glass, .bento-card, .chart-container-glass, .category-shares-panel {
   background: rgba(4, 7, 16, 0.5) !important;
   backdrop-filter: blur(25px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
@@ -367,7 +367,7 @@ button, input, select, textarea {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.glass-panel:hover, .stat-card:hover, .section-glass:hover, .budget-card-glass:hover, .goal-card-glass:hover, .transaction-form-panel:hover, .transaction-list-panel:hover {
+.glass-panel:hover, .stat-card:hover, .section-glass:hover, .budget-card-glass:hover, .goal-card-glass:hover, .transaction-form-panel:hover, .transaction-list-panel:hover, .bento-card:hover, .chart-container-glass:hover, .category-shares-panel:hover {
   transform: translateY(-4px) scale(1.005);
   border-color: rgba(245, 158, 11, 0.22) !important; /* Gold border glow on hover */
   box-shadow: 0 20px 40px -10px rgba(245, 158, 11, 0.15) !important; /* Gold shadow glow */

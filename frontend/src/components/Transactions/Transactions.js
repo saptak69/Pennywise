@@ -182,7 +182,7 @@ function Transactions() {
     <div>
       <div className="list-panel-header">
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 700 }}>Transactions</h1>
+          <h1 className="gradient-title" style={{ fontSize: '28px' }}>Transactions</h1>
           <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Add and manage your income/expense logs</p>
         </div>
         <button onClick={handleExportCSV} className="btn-secondary" style={{ display: 'inline-flex', gap: '8px', fontSize: '14px' }}>

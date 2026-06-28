@@ -173,8 +173,13 @@ function Dashboard() {
   else if (fvi >= 25) { fviStatus = 'Caution'; fviColor = 'var(--accent-warning)'; }
   else { fviStatus = 'Vulnerable'; fviColor = 'var(--accent-danger)'; }
 
-  const runwayMonths = totalExpenses > 0 ? (savings / totalExpenses) : (savings > 0 ? 12 : 0);
+  const runwayMonths = totalExpenses > 0 ? Math.max(savings / totalExpenses, 0) : (savings > 0 ? 12 : 0);
   const runwayDays = Math.round(runwayMonths * 30.4);
+
+  // Reservoir visual calculations relative to peak flow
+  const maxFlow = Math.max(totalIncome, totalExpenses, 1);
+  const inflowPercent = (totalIncome / maxFlow) * 100;
+  const outflowPercent = (totalExpenses / maxFlow) * 100;
 
   return (
     <div>
@@ -239,13 +244,15 @@ function Dashboard() {
         <div className="bento-card flow-reservoir-widget">
           <div className="widget-header">
             <h3>Reservoir Balance</h3>
-            <span className="flow-balance-ratio">+{savingsRate.toFixed(0)}% Saved</span>
+            <span className="flow-balance-ratio">
+              {savingsRate >= 0 ? '+' : ''}{savingsRate.toFixed(0)}% Saved
+            </span>
           </div>
           <div className="reservoir-visual">
             <div className="reservoir-bar income-bar">
               <span className="bar-label">INFLOW</span>
               <span className="bar-val">₹{Math.round(totalIncome).toLocaleString('en-IN')}</span>
-              <div className="bar-fill-glow" style={{ height: `${totalIncome > 0 ? 100 : 0}%` }}></div>
+              <div className="bar-fill-glow" style={{ height: `${inflowPercent}%` }}></div>
             </div>
             
             <div className="reservoir-center">
@@ -259,7 +266,7 @@ function Dashboard() {
             <div className="reservoir-bar expense-bar">
               <span className="bar-label">OUTFLOW</span>
               <span className="bar-val">₹{Math.round(totalExpenses).toLocaleString('en-IN')}</span>
-              <div className="bar-fill-glow" style={{ height: `${totalIncome > 0 ? Math.min((totalExpenses / totalIncome) * 100, 100) : 0}%` }}></div>
+              <div className="bar-fill-glow" style={{ height: `${outflowPercent}%` }}></div>
             </div>
           </div>
         </div>

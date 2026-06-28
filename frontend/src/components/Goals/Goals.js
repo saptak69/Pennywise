@@ -112,7 +112,7 @@ function Goals() {
   return (
     <div>
       <div style={{ marginBottom: '30px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 700 }}>Savings Goals</h1>
+        <h1 className="gradient-title" style={{ fontSize: '28px' }}>Savings Targets</h1>
         <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Track your progress towards long-term savings targets</p>
       </div>
 
