@@ -7,38 +7,38 @@ Pennywise is a full-stack, industry-grade Personal Finance Tracker featuring a d
 ## 🚀 Key Portfolio Features
 
 ### 🔒 Authentication & Security
-*   **Token-Based Session Management:** Stateless login/signup utilizing secure JSON Web Tokens (JWT).
-*   **Password Hashing:** Robust password storage with `bcryptjs` using a salt work factor of 12.
-*   **Route Protection:** React Router navigation guards that shield all financial dashboard routes.
+1. **Token-Based Session Management:** Stateless login/signup utilizing secure JSON Web Tokens (JWT).
+2. **Password Hashing:** Robust password storage with `bcryptjs` using a salt work factor of 12.
+3. **Route Protection:** React Router navigation guards that shield all financial dashboard routes.
 
 ### 💰 Core Functionalities (MERN Stack)
-*   **Comprehensive Cash Flow Overview:** Visual cards display Monthly Income, Expenses, Savings, and Savings Rate.
-*   **Flexible Dynamic Budgets:** Database-stored custom spending limits per category, complete with reactive colored progress indicator bars (Green/Amber/Red) and warnings.
-*   **Full Savings Goals Tracker:** Set targets and deadlines for long-term purchases (e.g. laptop, travel) and record progressive savings contributions.
-*   **Search, Filter, & Sort:** Sort logs by Newest, Oldest, Highest Amount, or Lowest Amount. Search descriptions instantly.
-*   **CSV Report Exports:** Download all transaction logs in standard CSV format for off-line auditing.
+1. **Comprehensive Cash Flow Overview:** Visual cards display Monthly Income, Expenses, Savings, and Savings Rate.
+2. **Flexible Dynamic Budgets:** Database-stored custom spending limits per category, complete with reactive colored progress indicator bars (Green/Amber/Red) and warnings.
+3. **Full Savings Goals Tracker:** Set targets and deadlines for long-term purchases (e.g. laptop, travel) and record progressive savings contributions.
+4. **Search, Filter, & Sort:** Sort logs by Newest, Oldest, Highest Amount, or Lowest Amount. Search descriptions instantly.
+5. **CSV Report Exports:** Download all transaction logs in standard CSV format for off-line auditing.
 
 ### 📊 Advanced Analytics
-*   **Cash Flow Charting:** Beautiful responsive 6-month historical trend charts comparing income vs expenses.
-*   **Category Share Breakdown:** Doughnut chart mapping expenses across categories (Food, Travel, Bills, etc.) alongside color-coded metric tables.
-*   **Smart Spending Insights:** Automated comparative analysis comparing consecutive months (e.g., *"You spent 15% more on Travel this month."*).
+1. **Cash Flow Charting:** Beautiful responsive 6-month historical trend charts comparing income vs expenses.
+2. **Category Share Breakdown:** Doughnut chart mapping expenses across categories (Food, Travel, Bills, etc.) alongside color-coded metric tables.
+3. **Smart Spending Insights:** Automated comparative analysis comparing consecutive months (e.g., "You spent 15% more on Travel this month.").
 
 ---
 
 ## 🛠️ Tech Stack & Architecture
 
-*   **Frontend:** React (Vite/Create React App), Chart.js, React-Chartjs-2, Vanilla CSS.
-*   **Backend:** Node.js, Express, Mongoose ODM.
-*   **Database:** MongoDB Atlas.
-*   **Deployment:** Frontend hosted on **Vercel**; Backend hosted on **Render**.
+1. **Frontend:** React (Vite/Create React App), Chart.js, React-Chartjs-2, Vanilla CSS.
+2. **Backend:** Node.js, Express, Mongoose ODM.
+3. **Database:** MongoDB Atlas.
+4. **Deployment:** Frontend hosted on Vercel; Backend hosted on Render.
 
 ---
 
 ## 📦 Getting Started
 
 ### Prerequisites
-*   Node.js (v18+)
-*   MongoDB Instance (Local or Atlas Cluster)
+1. Node.js (v18+)
+2. MongoDB Instance (Local or Atlas Cluster)
 
 ### 1. Install Dependencies
 Run in both the frontend and backend folders:
@@ -71,5 +71,5 @@ npm run dev
 # Start frontend (from frontend/)
 npm run start
 ```
-*   Frontend: `http://localhost:3000`
-*   Backend: `http://localhost:5001`
+1. Frontend: http://localhost:3000
+2. Backend: http://localhost:5001
