@@ -1,29 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --bg-primary: #f5f8f6;       /* Soft Light Mint Cream */
-  --bg-secondary: #e9efe8;     /* Sage-grey tint */
+  --bg-primary: #f8fafc;       /* Clean Light Slate (Easy on eyes) */
+  --bg-secondary: #f1f5f9;     /* Light Grey-Slate */
   --bg-glass: #ffffff;
-  --border-glass: #1b4332;     /* Forest Green Border */
-  --bg-glass-active: #d8f3dc;  /* Mint/emerald active highlight */
+  --border-glass: #e2e8f0;     /* Soft slate border */
+  --bg-glass-active: #e2e8f0;
   
-  --text-primary: #121815;     /* Deep Green-Charcoal (High contrast) */
-  --text-secondary: #2d3e36;   /* Slate Sage */
-  --text-muted: #5e7267;       /* Soft Sage-grey */
+  --text-primary: #0f172a;     /* Deep Slate 900 (Excellent readability) */
+  --text-secondary: #475569;   /* Slate 600 */
+  --text-muted: #64748b;       /* Slate 500 */
   
-  --accent-purple: #7209b7;    /* Deep Purple */
-  --accent-purple-glow: rgba(114, 9, 183, 0.08);
+  --accent-purple: #4f46e5;    /* Premium Indigo */
+  --accent-purple-glow: rgba(79, 70, 229, 0.08);
   --accent-blue: #0284c7;      /* Clean Blue */
-  --accent-success: #10b981;   /* Vibrant Mint/Emerald */
-  --accent-danger: #e11d48;    /* Coral Red */
-  --accent-warning: #d97706;   /* Amber Gold */
+  --accent-success: #10b981;   /* Emerald Green (Money) */
+  --accent-danger: #ef4444;    /* Coral Red */
+  --accent-warning: #f59e0b;   /* Amber Gold */
   
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --shadow-sm: 2px 2px 0px 0px #1b4332;
-  --shadow-md: 4px 4px 0px 0px #1b4332;
-  --shadow-lg: 0 10px 25px -5px rgba(27, 67, 50, 0.1);
-  --shadow-glass: 3px 3px 0px 0px #1b4332;
-  --transition-all: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+  --shadow-glass: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  --transition-all: all 0.25s ease;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -137,12 +137,12 @@ button, input, select, textarea {
 }
 
 .btn-primary {
-  background: #1b4332 !important; /* Forest green background */
-  color: #ffffff !important;      /* White text */
-  border: 2px solid #1b4332 !important;
-  padding: 12px 20px;
+  background: #10b981 !important; /* Vibrant money green */
+  color: #ffffff !important;
+  border: none !important;
+  padding: 12px 24px;
   border-radius: var(--radius-sm) !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -150,79 +150,77 @@ button, input, select, textarea {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 3px 3px 0px 0px #1b4332 !important;
-  transition: all 0.15s ease-in-out !important;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25) !important;
+  transition: var(--transition-all) !important;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 4px 4px 0px 0px #1b4332 !important;
-  background: #225a43 !important; /* Lighter forest green */
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35) !important;
+  background: #059669 !important; /* Darker emerald on hover */
 }
 
 .btn-primary:active {
-  transform: translate(0, 0) !important;
-  box-shadow: 1px 1px 0px 0px #1b4332 !important;
+  transform: translateY(0) !important;
 }
 
 .btn-primary:disabled {
-  background: #d1d5db !important;
-  color: #9ca3af !important;
-  border-color: #9ca3af !important;
+  background: #cbd5e1 !important;
+  color: #94a3b8 !important;
+  border: none !important;
   box-shadow: none !important;
   cursor: not-allowed;
   transform: none !important;
 }
 
 .btn-secondary {
-  background: #d8f3dc !important; /* Soft mint */
-  color: #1b4332 !important;      /* Forest text */
-  border: 2px solid #1b4332 !important;
-  padding: 12px 20px;
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 12px 24px;
   border-radius: var(--radius-sm) !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   text-transform: uppercase !important;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 3px 3px 0px 0px #1b4332 !important;
-  transition: all 0.15s ease-in-out !important;
+  transition: var(--transition-all) !important;
 }
 
 .btn-secondary:hover {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 4px 4px 0px 0px #1b4332 !important;
+  background: #e2e8f0 !important;
+  transform: translateY(-1px) !important;
 }
 
 /* Input Fields */
 .form-input {
   width: 100%;
   background: #ffffff !important;
-  border: 2px solid #1b4332 !important;
+  border: 1px solid #cbd5e1 !important;
   border-radius: var(--radius-sm) !important;
   padding: 12px 16px;
-  color: #121815 !important;
+  color: #0f172a !important;
   font-size: 15px;
-  font-weight: 600 !important;
-  transition: all 0.15s ease-in-out;
+  font-weight: 500 !important;
+  transition: var(--transition-all);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #10b981 !important; /* Mint green focus border */
-  box-shadow: 2px 2px 0px 0px #1b4332 !important;
+  border-color: #10b981 !important; /* Emerald focus border */
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
 }
 
 .form-label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  color: #121815 !important;
-  letter-spacing: 0.5px;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  color: #475569 !important;
+  letter-spacing: normal;
 }
 
 /* Toast Notifications */
@@ -283,7 +281,7 @@ button, input, select, textarea {
   height: 100vh;
   z-index: -1;
   overflow: hidden;
-  background-color: #f5f8f6; /* Soft Light Mint Cream background */
+  background-color: #f8fafc; /* Clean Light Slate background */
   pointer-events: none;
 }
 
@@ -299,32 +297,32 @@ button, input, select, textarea {
   display: none;
 }
 
-/* Neo-brutalist Card glow-ups */
+/* Card glow-ups */
 .glass-panel, .stat-card, .section-glass, .budget-card-glass, .auth-card-glass, .goal-card-glass, .transaction-form-panel, .transaction-list-panel, .sidebar-glass, .bento-card, .chart-container-glass, .category-shares-panel {
   background: #ffffff !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 2px solid #1b4332 !important; /* Premium Forest Green border */
+  border: 1px solid #e2e8f0 !important; /* Soft borders */
   border-radius: var(--radius-md) !important;
-  box-shadow: 4px 4px 0px 0px #1b4332 !important; /* Flat dark green drop shadow */
-  color: #121815 !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: var(--shadow-glass) !important; /* Premium soft drop shadows */
+  color: var(--text-primary) !important;
+  transition: var(--transition-all) !important;
 }
 
 .glass-panel:hover, .stat-card:hover, .section-glass:hover, .budget-card-glass:hover, .goal-card-glass:hover, .transaction-form-panel:hover, .transaction-list-panel:hover, .bento-card:hover, .chart-container-glass:hover, .category-shares-panel:hover {
-  transform: translate(-2px, -2px) !important;
-  border-color: #1b4332 !important;
-  box-shadow: 6px 6px 0px 0px #1b4332 !important;
+  transform: translateY(-2px) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important; /* Highlight with money green border on hover */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03) !important;
 }
 
 .auth-card-glass {
-  border-color: #1b4332 !important;
-  box-shadow: 6px 6px 0px 0px #1b4332 !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* Card gradients for titles */
 .gradient-title {
-  background: linear-gradient(135deg, #1b4332 30%, #10b981 100%) !important; /* Wealthy forest-to-emerald gradient */
+  background: linear-gradient(135deg, #065f46 30%, #10b981 100%) !important; /* Emerald Money Gradient */
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   font-weight: 800 !important;
@@ -337,30 +335,31 @@ button, input, select, textarea {
 
 /* List items micro-animations */
 .transaction-list-item, .recent-item {
-  border: 2px solid #1b4332 !important;
+  border: 1px solid #e2e8f0 !important;
   border-radius: var(--radius-sm) !important;
   background: #ffffff !important;
-  color: #121815 !important;
-  box-shadow: 2px 2px 0px 0px #1b4332 !important;
-  transition: all 0.15s ease-in-out !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+  transition: var(--transition-all) !important;
 }
 
 .transaction-list-item:hover, .recent-item:hover {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 3px 3px 0px 0px #1b4332 !important;
+  transform: translateY(-1px) !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
 /* Hover effects for buttons */
 .btn-primary, .btn-secondary, .btn-sm-primary, .btn-sm-secondary {
-  transition: all 0.15s ease-in-out !important;
+  transition: var(--transition-all) !important;
 }
 
 .btn-primary:hover {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 4px 4px 0px 0px #1b4332 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35) !important;
 }
 
 .btn-secondary:hover {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 4px 4px 0px 0px #1b4332 !important;
+  transform: translateY(-1px) !important;
+  background: #e2e8f0 !important;
 }

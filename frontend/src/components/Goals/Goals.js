@@ -242,9 +242,8 @@ function Goals() {
                             value={contributions[goal._id] || ''}
                             onChange={(e) => handleContributionChange(goal._id, e.target.value)}
                             className="goal-add-input"
-                            style={{ border: '2px solid #000', color: '#000' }}
                           />
-                          <button onClick={() => handleAddSavings(goal)} className="btn-sm-primary" style={{ border: '2px solid #000', color: '#000' }}>Add Savings</button>
+                          <button onClick={() => handleAddSavings(goal)} className="btn-sm-primary">Add Savings</button>
                         </div>
                       )}
                     </div>

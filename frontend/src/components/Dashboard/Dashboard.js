@@ -186,9 +186,9 @@ function Dashboard() {
       <div className="dashboard-title-area">
         <div>
           <h1 className="gradient-title">Financial Core Deck</h1>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '4px', fontWeight: 700 }}>Welcome back, {user?.name}. Your financial core dashboard is active.</p>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, {user?.name}. Your financial core dashboard is active.</p>
         </div>
-        <span className="deck-timestamp" style={{ fontWeight: 800 }}>
+        <span className="deck-timestamp">
           {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </span>
       </div>
@@ -199,7 +199,7 @@ function Dashboard() {
         <div className="bento-card fvi-widget">
           <div className="widget-header">
             <h3>Financial Vitality</h3>
-            <span className="badge-fvi" style={{ backgroundColor: `${fviColor}`, color: '#000', border: `2px solid #000`, fontWeight: 800 }}>{fviStatus}</span>
+            <span className="badge-fvi" style={{ backgroundColor: `${fviColor}18`, color: fviColor }}>{fviStatus}</span>
           </div>
           <div className="fvi-dial-container">
             <svg className="fvi-svg" viewBox="0 0 100 100">
@@ -212,12 +212,11 @@ function Dashboard() {
                 stroke={fviColor}
                 strokeDasharray="251.2"
                 strokeDashoffset={251.2 - (251.2 * fvi) / 100}
-                style={{ strokeWidth: 10 }}
               />
-              <text x="50" y="56" className="fvi-text" style={{ fill: '#000', fontWeight: 900 }}>{fvi}%</text>
+              <text x="50" y="56" className="fvi-text">{fvi}%</text>
             </svg>
           </div>
-          <div className="fvi-footer" style={{ fontWeight: 700, color: '#000' }}>
+          <div className="fvi-footer">
             <p>Reflects budget discipline and savings velocity.</p>
           </div>
         </div>
@@ -226,13 +225,13 @@ function Dashboard() {
         <div className="bento-card runway-widget">
           <div className="widget-header">
             <h3>Cashflow Runway</h3>
-            <span className="runway-icon-label" style={{ fontWeight: 800, border: '2px solid #000', color: '#000' }}>Time Buffer</span>
+            <span className="runway-icon-label">Time Buffer</span>
           </div>
           <div className="runway-timer">
-            <div className="timer-number" style={{ background: 'none', WebkitTextFillColor: 'initial', color: '#000', fontSize: '64px' }}>{runwayDays}</div>
-            <div className="timer-unit" style={{ color: '#000', fontWeight: 900 }}>DAYS</div>
+            <div className="timer-number">{runwayDays}</div>
+            <div className="timer-unit">DAYS</div>
           </div>
-          <div className="runway-footer" style={{ fontWeight: 700, color: '#000' }}>
+          <div className="runway-footer">
             <p>
               {runwayMonths > 0 
                 ? `Estimated survival of ~${runwayMonths.toFixed(1)} months if all income streams stop today.`
@@ -245,29 +244,29 @@ function Dashboard() {
         <div className="bento-card flow-reservoir-widget">
           <div className="widget-header">
             <h3>Reservoir Cashflow</h3>
-            <span className="flow-balance-ratio" style={{ color: '#000', fontWeight: 800 }}>
+            <span className="flow-balance-ratio">
               {savingsRate >= 0 ? '+' : ''}{savingsRate.toFixed(0)}% Saved
             </span>
           </div>
           <div className="reservoir-visual">
             <div className="reservoir-bar income-bar">
-              <span className="bar-label" style={{ color: '#000', fontWeight: 800 }}>INFLOW</span>
-              <span className="bar-val" style={{ color: '#000', fontWeight: 900 }}>₹{Math.round(totalIncome).toLocaleString('en-IN')}</span>
-              <div className="bar-fill-glow" style={{ height: `${inflowPercent}%`, border: '2px solid #000', backgroundColor: '#22c55e', borderRadius: '4px' }}></div>
+              <span className="bar-label">INFLOW</span>
+              <span className="bar-val">₹{Math.round(totalIncome).toLocaleString('en-IN')}</span>
+              <div className="bar-fill-glow" style={{ height: `${inflowPercent}%` }}></div>
             </div>
             
             <div className="reservoir-center">
-              <div className="reservoir-core" style={{ animationPlayState: savings > 0 ? 'running' : 'paused', border: '2px solid #000', backgroundColor: '#eab308' }}>
-                <div className="core-waves" style={{ backgroundColor: 'rgba(0,0,0,0.15)' }}></div>
+              <div className="reservoir-core" style={{ animationPlayState: savings > 0 ? 'running' : 'paused' }}>
+                <div className="core-waves"></div>
               </div>
-              <span className="core-label" style={{ color: '#000', fontWeight: 800 }}>SAVINGS</span>
-              <span className="core-val" style={{ color: '#22c55e', fontWeight: 900, fontSize: '14px' }}>₹{Math.round(savings).toLocaleString('en-IN')}</span>
+              <span className="core-label">SAVINGS</span>
+              <span className="core-val">₹{Math.round(savings).toLocaleString('en-IN')}</span>
             </div>
             
             <div className="reservoir-bar expense-bar">
-              <span className="bar-label" style={{ color: '#000', fontWeight: 800 }}>OUTFLOW</span>
-              <span className="bar-val" style={{ color: '#000', fontWeight: 900 }}>₹{Math.round(totalExpenses).toLocaleString('en-IN')}</span>
-              <div className="bar-fill-glow" style={{ height: `${outflowPercent}%`, border: '2px solid #000', backgroundColor: '#ef4444', borderRadius: '4px' }}></div>
+              <span className="bar-label">OUTFLOW</span>
+              <span className="bar-val">₹{Math.round(totalExpenses).toLocaleString('en-IN')}</span>
+              <div className="bar-fill-glow" style={{ height: `${outflowPercent}%` }}></div>
             </div>
           </div>
         </div>
@@ -277,7 +276,7 @@ function Dashboard() {
       <div className="budget-card-glass budget-reactor-widget">
         <div className="budget-card-header reactor-header">
           <h2>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: '#000' }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: 'var(--accent-warning)' }}>
               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
               <polyline points="2 17 12 22 22 17"></polyline>
               <polyline points="2 12 12 17 22 12"></polyline>
@@ -293,14 +292,13 @@ function Dashboard() {
                   value={budgetVal}
                   onChange={(e) => setBudgetVal(e.target.value)}
                   className="budget-input-glass"
-                  style={{ border: '2px solid #000', color: '#000' }}
                 />
-                <button onClick={handleSaveBudget} className="btn-sm-primary" style={{ border: '2px solid #000', color: '#000' }}>Engage</button>
-                {budgetLimit && <button onClick={handleClearBudget} className="btn-sm-secondary" style={{ color: 'var(--accent-danger)', border: '2px solid #000' }}>Clear</button>}
-                <button onClick={() => setIsEditingBudget(false)} className="btn-sm-secondary" style={{ border: '2px solid #000', color: '#000' }}>Cancel</button>
+                <button onClick={handleSaveBudget} className="btn-sm-primary">Engage</button>
+                {budgetLimit && <button onClick={handleClearBudget} className="btn-sm-secondary" style={{ color: 'var(--accent-danger)' }}>Clear</button>}
+                <button onClick={() => setIsEditingBudget(false)} className="btn-sm-secondary">Cancel</button>
               </>
             ) : (
-              <button onClick={() => setIsEditingBudget(true)} className="btn-sm-secondary" style={{ border: '2px solid #000', color: '#000', fontWeight: 800 }}>
+              <button onClick={() => setIsEditingBudget(true)} className="btn-sm-secondary">
                 {budgetLimit ? 'Adjust Budget Limit' : 'Initialize Budget Limit'}
               </button>
             )}
@@ -312,39 +310,40 @@ function Dashboard() {
             <div className="reactor-display">
               <div className="reactor-metrics">
                 <div className="metric">
-                  <span className="label" style={{ color: '#000', fontWeight: 800 }}>CONSUMED BUDGET</span>
-                  <span className="val" style={{ color: '#ef4444', fontWeight: 900 }}>₹{totalExpenses.toLocaleString('en-IN')}</span>
+                  <span className="label">CONSUMED BUDGET</span>
+                  <span className="val">₹{totalExpenses.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="metric align-right">
-                  <span className="label" style={{ color: '#000', fontWeight: 800 }}>ALLOCATED CAPACITY</span>
-                  <span className="val" style={{ color: '#000', fontWeight: 900 }}>₹{budgetLimit.toLocaleString('en-IN')}</span>
+                  <span className="label">ALLOCATED CAPACITY</span>
+                  <span className="val">₹{budgetLimit.toLocaleString('en-IN')}</span>
                 </div>
               </div>
               
               <div className="reactor-meter-container">
-                <div className="reactor-meter-track" style={{ border: '2px solid #000', height: '18px', borderRadius: '0', background: '#fff' }}>
+                <div className="reactor-meter-track">
                   <div 
                     className={`reactor-meter-fill ${budgetFillClass}`}
-                    style={{ width: `${Math.min(budgetPercent, 100)}%`, borderRadius: '0', borderRight: '2px solid #000' }}
+                    style={{ width: `${Math.min(budgetPercent, 100)}%` }}
                   >
+                    <div className="reactor-pulse-glow"></div>
                   </div>
                 </div>
-                <span className="reactor-percent" style={{ color: '#000', fontWeight: 900 }}>{budgetPercent.toFixed(0)}%</span>
+                <span className="reactor-percent">{budgetPercent.toFixed(0)}%</span>
               </div>
             </div>
 
-            <div className="reactor-status-msg" style={{ border: '2px solid #000', background: '#fafaf6', color: '#000', fontWeight: 800 }}>
+            <div className="reactor-status-msg">
               {isBudgetExceeded ? (
-                <span className="status-critical" style={{ color: '#ef4444' }}>⚠️ Critical Alert: Budget overloaded by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}!</span>
+                <span className="status-critical">⚠️ Critical Alert: Budget overloaded by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}!</span>
               ) : budgetPercent >= 80 ? (
-                <span className="status-warning" style={{ color: '#f59e0b' }}>⚡ Pacing Alert: Spending capacity has reached {budgetPercent.toFixed(0)}%.</span>
+                <span className="status-warning">⚡ Pacing Alert: Spending capacity has reached {budgetPercent.toFixed(0)}%.</span>
               ) : (
-                <span className="status-stable" style={{ color: '#10b981' }}>🟢 Status Stable: Operating within containment limit. Remaining capacity: ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')}</span>
+                <span className="status-stable">🟢 Status Stable: Operating within containment limit. Remaining capacity: ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')}</span>
               )}
             </div>
           </div>
         ) : (
-          <div className="reactor-empty" style={{ fontWeight: 700, color: '#6b7280' }}>
+          <div className="reactor-empty">
             <p>Budget Core Offline. Set a monthly budget goal to power up core indicators.</p>
           </div>
         )}
@@ -354,28 +353,28 @@ function Dashboard() {
       <div className="dashboard-grid">
         <div className="section-glass">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2 style={{ textTransform: 'uppercase', fontWeight: 900 }}>Recent Transactions</h2>
-            <Link to="/transactions" style={{ fontSize: '14px', color: '#a855f7', fontWeight: 800, textDecoration: 'underline' }}>View All</Link>
+            <h2>Recent Transactions</h2>
+            <Link to="/transactions" style={{ fontSize: '13px', color: 'var(--accent-purple)', fontWeight: 600 }}>View All</Link>
           </div>
           
           {recentTransactions.length > 0 ? (
             <div className="recent-list">
               {recentTransactions.map((t) => (
-                <div key={t._id} className="recent-item" style={{ border: '2px solid #000', borderRadius: '4px', background: '#fff' }}>
+                <div key={t._id} className="recent-item">
                   <div className="item-left">
-                    <div className={`item-icon-circle ${t.type}`} style={{ border: '2px solid #000' }}>
+                    <div className={`item-icon-circle ${t.type}`}>
                       {getCategoryIcon(t.category, t.type)}
                     </div>
                     <div className="item-details">
-                      <span className="item-desc" style={{ color: '#000', fontWeight: 800 }}>{t.description}</span>
-                      <span className="item-cat" style={{ color: '#6b7280', fontWeight: 600 }}>{t.category}</span>
+                      <span className="item-desc">{t.description}</span>
+                      <span className="item-cat">{t.category}</span>
                     </div>
                   </div>
                   <div className="item-right">
-                    <span className={`item-amount ${t.type}`} style={{ fontWeight: 900 }}>
+                    <span className={`item-amount ${t.type}`}>
                       {t.type === 'income' ? '+' : '-'} ₹{t.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </span>
-                    <span className="item-date" style={{ color: '#6b7280', fontWeight: 700 }}>{new Date(t.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</span>
+                    <span className="item-date">{new Date(t.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</span>
                   </div>
                 </div>
               ))}
@@ -394,21 +393,24 @@ function Dashboard() {
         </div>
 
         <div className="section-glass">
-          <h2 style={{ textTransform: 'uppercase', fontWeight: 900 }}>
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            </svg>
             Spending Insights
           </h2>
 
           {analytics?.insights && analytics.insights.length > 0 ? (
             <div className="insights-list">
               {analytics.insights.map((insight, idx) => (
-                <div key={idx} className="insight-bubble" style={{ border: '2px solid #000', borderRadius: '4px', background: '#fafaf6' }}>
-                  <span className="insight-icon" style={{ color: '#a855f7' }}>
+                <div key={idx} className="insight-bubble">
+                  <span className="insight-icon">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                       <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg>
                   </span>
-                  <span className="insight-text" style={{ color: '#000', fontWeight: 700 }}>{insight}</span>
+                  <span className="insight-text">{insight}</span>
                 </div>
               ))}
             </div>
@@ -419,7 +421,7 @@ function Dashboard() {
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
-              <span style={{ color: '#6b7280', fontWeight: 700 }}>Not enough history to generate insights yet.</span>
+              <span>Not enough transaction history to generate insights yet.</span>
             </div>
           )}
         </div>

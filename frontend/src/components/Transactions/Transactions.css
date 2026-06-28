@@ -113,8 +113,8 @@
 .filter-select {
   flex: 1;
   min-width: 130px;
-  background: rgba(15, 23, 42, 0.4);
-  border: 1.5px solid var(--border-glass);
+  background: #ffffff;
+  border: 1px solid var(--border-glass);
   color: var(--text-primary);
   padding: 10px 14px;
   border-radius: var(--radius-sm);
@@ -125,7 +125,7 @@
 }
 
 .filter-select:focus {
-  border-color: var(--accent-purple);
+  border-color: var(--accent-success);
 }
 
 /* Transaction List Item styling */
@@ -139,16 +139,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.01);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 16px 20px;
   border-radius: var(--radius-md);
   transition: var(--transition-all);
 }
 
 .transaction-list-item:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: var(--border-glass);
+  background: var(--bg-secondary);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .item-left-desc {
@@ -167,15 +167,15 @@
 }
 
 .item-badge-icon.income {
-  background: rgba(52, 211, 153, 0.08);
+  background: rgba(16, 185, 129, 0.08);
   color: var(--accent-success);
-  border: 1px solid rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.15);
 }
 
 .item-badge-icon.expense {
-  background: rgba(248, 113, 113, 0.08);
+  background: rgba(239, 68, 68, 0.08);
   color: var(--accent-danger);
-  border: 1px solid rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.15);
 }
 
 .item-primary-info {
@@ -199,8 +199,8 @@
 }
 
 .badge-tag-recurring {
-  background: rgba(129, 140, 248, 0.12);
-  color: var(--accent-purple);
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
   padding: 1px 6px;
   border-radius: 4px;
   font-size: 10px;
@@ -248,7 +248,7 @@
 }
 
 .btn-icon-delete:hover {
-  background: rgba(248, 113, 113, 0.1);
+  background: rgba(239, 68, 68, 0.1);
   color: var(--accent-danger);
 }
 
@@ -262,7 +262,7 @@
 }
 
 .btn-page-nav {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-glass);
   color: var(--text-primary);
   padding: 8px 16px;
@@ -274,7 +274,7 @@
 }
 
 .btn-page-nav:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.08);
+  background: #cbd5e1;
 }
 
 .btn-page-nav:disabled {
