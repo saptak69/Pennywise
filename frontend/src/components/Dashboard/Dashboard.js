@@ -185,8 +185,8 @@ function Dashboard() {
     <div>
       <div className="dashboard-title-area">
         <div>
-          <h1 className="gradient-title">THE BREAD CORE 💸</h1>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '4px', fontWeight: 700 }}>Stacking bread since day one, {user?.name}. Let's secure the bag.</p>
+          <h1 className="gradient-title">Financial Core Deck</h1>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '4px', fontWeight: 700 }}>Welcome back, {user?.name}. Your financial core dashboard is active.</p>
         </div>
         <span className="deck-timestamp" style={{ fontWeight: 800 }}>
           {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
@@ -198,7 +198,7 @@ function Dashboard() {
         {/* Vitality Score Bento Widget */}
         <div className="bento-card fvi-widget">
           <div className="widget-header">
-            <h3>VIBE CHECK ⚡</h3>
+            <h3>Financial Vitality</h3>
             <span className="badge-fvi" style={{ backgroundColor: `${fviColor}`, color: '#000', border: `2px solid #000`, fontWeight: 800 }}>{fviStatus}</span>
           </div>
           <div className="fvi-dial-container">
@@ -218,25 +218,25 @@ function Dashboard() {
             </svg>
           </div>
           <div className="fvi-footer" style={{ fontWeight: 700, color: '#000' }}>
-            <p>Score checking your budget discipline and savings velocity.</p>
+            <p>Reflects budget discipline and savings velocity.</p>
           </div>
         </div>
 
         {/* Runway Clock Bento Widget */}
         <div className="bento-card runway-widget">
           <div className="widget-header">
-            <h3>BROKE ALTIMETER 🛡️</h3>
+            <h3>Cashflow Runway</h3>
             <span className="runway-icon-label" style={{ fontWeight: 800, border: '2px solid #000', color: '#000' }}>Time Buffer</span>
           </div>
           <div className="runway-timer">
             <div className="timer-number" style={{ background: 'none', WebkitTextFillColor: 'initial', color: '#000', fontSize: '64px' }}>{runwayDays}</div>
-            <div className="timer-unit" style={{ color: '#000', fontWeight: 900 }}>DAYS LEFT</div>
+            <div className="timer-unit" style={{ color: '#000', fontWeight: 900 }}>DAYS</div>
           </div>
           <div className="runway-footer" style={{ fontWeight: 700, color: '#000' }}>
             <p>
               {runwayMonths > 0 
-                ? `💅 You survive comfortable for ~${runwayMonths.toFixed(1)} months if all income streams stop today.`
-                : "Initialize your budget altimeter before you hit rock bottom."}
+                ? `Estimated survival of ~${runwayMonths.toFixed(1)} months if all income streams stop today.`
+                : "Add savings or reduce expenses to initialize runway calculation."}
             </p>
           </div>
         </div>
@@ -244,9 +244,9 @@ function Dashboard() {
         {/* Wealth flow reservoir widget */}
         <div className="bento-card flow-reservoir-widget">
           <div className="widget-header">
-            <h3>THE MONEY FLOW 🌊</h3>
+            <h3>Reservoir Cashflow</h3>
             <span className="flow-balance-ratio" style={{ color: '#000', fontWeight: 800 }}>
-              {savingsRate >= 0 ? '📈 +' : '📉 '}{savingsRate.toFixed(0)}% Saved
+              {savingsRate >= 0 ? '+' : ''}{savingsRate.toFixed(0)}% Saved
             </span>
           </div>
           <div className="reservoir-visual">
@@ -282,7 +282,7 @@ function Dashboard() {
               <polyline points="2 17 12 22 22 17"></polyline>
               <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
-            STOP SPENDING LIMIT 🛑
+            Monthly Budget Limit
           </h2>
           <div className="budget-actions">
             {isEditingBudget ? (
@@ -301,7 +301,7 @@ function Dashboard() {
               </>
             ) : (
               <button onClick={() => setIsEditingBudget(true)} className="btn-sm-secondary" style={{ border: '2px solid #000', color: '#000', fontWeight: 800 }}>
-                {budgetLimit ? 'Adjust Spending limit' : 'Initialize limit'}
+                {budgetLimit ? 'Adjust Budget Limit' : 'Initialize Budget Limit'}
               </button>
             )}
           </div>
@@ -312,11 +312,11 @@ function Dashboard() {
             <div className="reactor-display">
               <div className="reactor-metrics">
                 <div className="metric">
-                  <span className="label" style={{ color: '#000', fontWeight: 800 }}>BURNED CASH</span>
+                  <span className="label" style={{ color: '#000', fontWeight: 800 }}>CONSUMED BUDGET</span>
                   <span className="val" style={{ color: '#ef4444', fontWeight: 900 }}>₹{totalExpenses.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="metric align-right">
-                  <span className="label" style={{ color: '#000', fontWeight: 800 }}>MAX LIMIT</span>
+                  <span className="label" style={{ color: '#000', fontWeight: 800 }}>ALLOCATED CAPACITY</span>
                   <span className="val" style={{ color: '#000', fontWeight: 900 }}>₹{budgetLimit.toLocaleString('en-IN')}</span>
                 </div>
               </div>
@@ -335,17 +335,17 @@ function Dashboard() {
 
             <div className="reactor-status-msg" style={{ border: '2px solid #000', background: '#fafaf6', color: '#000', fontWeight: 800 }}>
               {isBudgetExceeded ? (
-                <span className="status-critical" style={{ color: '#ef4444' }}>🚨 POLICE CALLED: Broke by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}! Chill out.</span>
+                <span className="status-critical" style={{ color: '#ef4444' }}>⚠️ Critical Alert: Budget overloaded by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}!</span>
               ) : budgetPercent >= 80 ? (
-                <span className="status-warning" style={{ color: '#f59e0b' }}>⚠️ DANGER ZONE: Spendings pacing at {budgetPercent.toFixed(0)}%. Put the card away!</span>
+                <span className="status-warning" style={{ color: '#f59e0b' }}>⚡ Pacing Alert: Spending capacity has reached {budgetPercent.toFixed(0)}%.</span>
               ) : (
-                <span className="status-stable" style={{ color: '#10b981' }}>🟢 CHILLIN: Safe boundaries. Remaining allowance: ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')}</span>
+                <span className="status-stable" style={{ color: '#10b981' }}>🟢 Status Stable: Operating within containment limit. Remaining capacity: ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')}</span>
               )}
             </div>
           </div>
         ) : (
           <div className="reactor-empty" style={{ fontWeight: 700, color: '#6b7280' }}>
-            <p>Containment Core Offline. Set a monthly budget goal to power up core indicators.</p>
+            <p>Budget Core Offline. Set a monthly budget goal to power up core indicators.</p>
           </div>
         )}
       </div>
@@ -354,7 +354,7 @@ function Dashboard() {
       <div className="dashboard-grid">
         <div className="section-glass">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2 style={{ textTransform: 'uppercase', fontWeight: 900 }}>SPEND LOG / CASH FLOW 📜</h2>
+            <h2 style={{ textTransform: 'uppercase', fontWeight: 900 }}>Recent Transactions</h2>
             <Link to="/transactions" style={{ fontSize: '14px', color: '#a855f7', fontWeight: 800, textDecoration: 'underline' }}>View All</Link>
           </div>
           
@@ -388,14 +388,14 @@ function Dashboard() {
                 <line x1="8" y1="2" x2="8" y2="6"></line>
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-              <span>No logs recorded yet. Add your first log in the cash tab.</span>
+              <span>No transactions recorded yet. Add your first record in the Transactions tab.</span>
             </div>
           )}
         </div>
 
         <div className="section-glass">
           <h2 style={{ textTransform: 'uppercase', fontWeight: 900 }}>
-            MONEY ROAST / INSIGHTS 🔥
+            Spending Insights
           </h2>
 
           {analytics?.insights && analytics.insights.length > 0 ? (
@@ -419,7 +419,7 @@ function Dashboard() {
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
-              <span style={{ color: '#6b7280', fontWeight: 700 }}>Not enough logs to generate roasts. Log more details!</span>
+              <span style={{ color: '#6b7280', fontWeight: 700 }}>Not enough history to generate insights yet.</span>
             </div>
           )}
         </div>

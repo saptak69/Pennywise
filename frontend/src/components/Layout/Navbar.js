@@ -20,7 +20,7 @@ function Navbar() {
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
         </span>
-        <span className="brand-name" style={{ color: '#000', WebkitTextFillColor: 'initial', fontWeight: 900 }}>Pennywise 💸</span>
+        <span className="brand-name" style={{ color: '#000', WebkitTextFillColor: 'initial', fontWeight: 900 }}>Pennywise</span>
       </div>
 
       <nav className="sidebar-nav">
@@ -33,7 +33,7 @@ function Navbar() {
               <rect x="3" y="16" width="7" height="5"></rect>
             </svg>
           </span>
-          <span className="nav-label" style={{ fontWeight: 800 }}>Core Control</span>
+          <span className="nav-label" style={{ fontWeight: 800 }}>Dashboard</span>
         </NavLink>
 
         <NavLink to="/transactions" className={({ isActive }) => `nav-item-glass ${isActive ? 'active' : ''}`}>
@@ -43,7 +43,7 @@ function Navbar() {
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
           </span>
-          <span className="nav-label" style={{ fontWeight: 800 }}>Cash Log</span>
+          <span className="nav-label" style={{ fontWeight: 800 }}>Transactions</span>
         </NavLink>
 
         <NavLink to="/analytics" className={({ isActive }) => `nav-item-glass ${isActive ? 'active' : ''}`}>
@@ -53,7 +53,7 @@ function Navbar() {
               <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
             </svg>
           </span>
-          <span className="nav-label" style={{ fontWeight: 800 }}>Vibe Stats</span>
+          <span className="nav-label" style={{ fontWeight: 800 }}>Analytics</span>
         </NavLink>
 
         <NavLink to="/goals" className={({ isActive }) => `nav-item-glass ${isActive ? 'active' : ''}`}>
@@ -62,7 +62,7 @@ function Navbar() {
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
             </svg>
           </span>
-          <span className="nav-label" style={{ fontWeight: 800 }}>Piggy Banks 🐷</span>
+          <span className="nav-label" style={{ fontWeight: 800 }}>Savings Goals</span>
         </NavLink>
       </nav>
 
