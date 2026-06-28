@@ -50,7 +50,18 @@ app.use('/api/analytics', require('./routes/analytics'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', service: 'Pennywise API' });
+  const dbState = mongoose.connection.readyState;
+  const states = {
+    0: 'disconnected',
+    1: 'connected',
+    2: 'connecting',
+    3: 'disconnecting'
+  };
+  res.json({ 
+    status: 'ok', 
+    service: 'Pennywise API',
+    database: states[dbState] || 'unknown'
+  });
 });
 
 // Serve frontend assets in production (if mono-repo deploy)
