@@ -68,12 +68,18 @@
   color: var(--text-primary);
 }
 
+.nav-item-glass {
+  border-radius: 0px !important;
+}
+
 .nav-item-glass.active {
-  background: #00ff66 !important;
-  border: 2px solid #00ff66 !important;
-  color: #000000 !important;
-  font-weight: 900 !important;
-  box-shadow: 3px 3px 0px 0px #a855f7 !important;
+  background: transparent !important;
+  border: none !important;
+  border-left: 2px solid #C8FF00 !important;
+  color: #C8FF00 !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
 }
 
 .nav-icon {

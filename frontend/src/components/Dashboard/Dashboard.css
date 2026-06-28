@@ -132,9 +132,9 @@
 }
 
 .timer-number {
-  font-size: 52px;
+  font-size: 80px;
   font-weight: 900;
-  color: #ffe600 !important; /* Electric Yellow */
+  color: #F0F0E8 !important;
   letter-spacing: -2px;
   background: none;
   -webkit-text-fill-color: initial;
@@ -190,14 +190,16 @@
 }
 
 .income-bar .bar-fill-glow {
-  background: #00ff66 !important;
-  border: 2px solid #00ff66 !important;
+  background: #C8FF00 !important;
+  border: none !important;
+  border-radius: 0px !important;
   box-shadow: none !important;
 }
 
 .expense-bar .bar-fill-glow {
-  background: #ff3366 !important;
-  border: 2px solid #ff3366 !important;
+  background: #FF2B2B !important;
+  border: none !important;
+  border-radius: 0px !important;
   box-shadow: none !important;
 }
 
@@ -212,12 +214,11 @@
 .reservoir-core {
   width: 52px;
   height: 52px;
-  border-radius: 50%;
-  background: #121212 !important;
-  border: 2px solid #00ff66 !important;
+  border-radius: 0% !important; /* Zero radius */
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
   position: relative;
   overflow: hidden;
-  box-shadow: 3px 3px 0px 0px #a855f7 !important;
   margin-bottom: 8px;
 }
 
@@ -227,8 +228,8 @@
   left: 0;
   width: 200%;
   height: 50%;
-  background: #00ff66 !important;
-  border-radius: 38% 42% 40% 40%;
+  background: #C8FF00 !important;
+  opacity: 0.3;
   animation: wave-float 6s infinite linear;
 }
 
@@ -246,7 +247,7 @@
 .core-val {
   font-size: 12px;
   font-weight: 800;
-  color: #00ff66 !important;
+  color: #C8FF00 !important;
 }
 
 /* Space Budget Containment Reactor Core */
@@ -302,34 +303,34 @@
 
 .reactor-meter-track {
   flex: 1;
-  height: 18px;
-  background: #0a0a0a !important;
-  border: 2px solid #00ff66 !important;
+  height: 2px !important; /* 2px hairline */
+  background: #2A2A2A !important;
+  border: none !important;
   border-radius: 0 !important;
   position: relative;
   overflow: hidden;
 }
 
 .reactor-meter-fill {
-  height: 100%;
+  height: 100% !important;
   border-radius: 0 !important;
-  border-right: 2px solid #00ff66 !important;
+  border: none !important;
   transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 .reactor-meter-fill.safe {
-  background: #00ff66 !important;
+  background: #C8FF00 !important;
   box-shadow: none !important;
 }
 
 .reactor-meter-fill.warning {
-  background: #ffe600 !important;
+  background: #C8FF00 !important;
   box-shadow: none !important;
 }
 
 .reactor-meter-fill.exceeded {
-  background: #ff3366 !important;
+  background: #FF2B2B !important;
   box-shadow: none !important;
 }
 
@@ -357,26 +358,26 @@
 
 .reactor-status-msg {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  background: #121212 !important;
-  border: 2px solid #00ff66 !important;
-  box-shadow: 3px 3px 0px 0px #a855f7 !important;
+  border-radius: 0px !important;
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
+  box-shadow: none !important;
 }
 
-.status-critical { color: var(--accent-danger); }
-.status-warning { color: var(--accent-warning); }
-.status-stable { color: var(--accent-success); }
+.status-critical { color: #FF2B2B; }
+.status-warning { color: #C8FF00; }
+.status-stable { color: #C8FF00; }
 
 /* Budget Card */
 .budget-card-glass {
   background: var(--bg-glass);
-  border: 2px solid #00ff66 !important;
-  border-radius: var(--radius-md);
+  border: 1px solid #2A2A2A !important;
+  border-radius: 0px !important;
   padding: 24px;
   margin-bottom: 30px;
-  box-shadow: 4px 4px 0px 0px #a855f7 !important;
+  box-shadow: none !important;
 }
 
 .budget-card-header {
@@ -404,11 +405,11 @@
 }
 
 .budget-input-glass {
-  background: #0a0a0a !important;
-  border: 2px solid #00ff66 !important;
+  background: #121212 !important;
+  border: 1px solid #2A2A2A !important;
   color: #ffffff !important;
   padding: 8px 12px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px !important;
   width: 120px;
   font-size: 14px;
   transition: var(--transition-all);
@@ -416,23 +417,24 @@
 
 .budget-input-glass:focus {
   outline: none;
-  border-color: #00f0ff;
+  border-color: #C8FF00;
 }
 
 .btn-sm-primary, .btn-sm-secondary {
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 800;
-  border-radius: var(--radius-sm);
+  border-radius: 0px !important;
   cursor: pointer;
-  border: 2px solid #00ff66 !important;
+  border: 1px solid #2A2A2A !important;
   transition: var(--transition-all);
 }
 
 .btn-sm-primary {
-  background: #00ff66 !important;
-  color: #000000 !important;
-  box-shadow: 2px 2px 0px 0px #a855f7 !important;
+  background: #C8FF00 !important;
+  color: #0A0A0A !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .btn-sm-primary:hover {
@@ -493,17 +495,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 18px;
-  border-radius: var(--radius-sm);
-  background: #121212;
-  border: 2px solid #00ff66 !important;
-  box-shadow: 3px 3px 0px 0px #a855f7 !important;
+  border-radius: 0px !important;
+  background: #1A1A1A;
+  border: 1px solid #2A2A2A !important;
+  box-shadow: none !important;
   transition: var(--transition-all);
 }
 
 .recent-item:hover {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 4px 4px 0px 0px #a855f7 !important;
-  background: #121212 !important;
+  border-color: #C8FF00 !important;
 }
 
 .item-left {
@@ -518,18 +518,18 @@
   justify-content: center;
   width: 38px;
   height: 38px;
-  border-radius: 50%;
-  border: 2px solid #00ff66 !important;
+  border-radius: 0% !important; /* Zero radius */
+  border: 1px solid #2A2A2A !important;
 }
 
 .item-icon-circle.income {
-  background: #00ff66;
-  color: #000000;
+  background: #1A1A1A;
+  color: #C8FF00;
 }
 
 .item-icon-circle.expense {
-  background: #ff3366;
-  color: #000000;
+  background: #1A1A1A;
+  color: #FF2B2B;
 }
 
 .item-details {
@@ -539,7 +539,7 @@
 
 .item-desc {
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 2px;
 }
@@ -548,7 +548,7 @@
   font-size: 12px;
   color: var(--text-secondary);
   text-transform: capitalize;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .item-right {
@@ -563,13 +563,13 @@
   font-weight: 900;
 }
 
-.item-amount.income { color: #00ff66; }
-.item-amount.expense { color: #ff3366; }
+.item-amount.income { color: #C8FF00; }
+.item-amount.expense { color: #FF2B2B; }
 
 .item-date {
   font-size: 11px;
   color: var(--text-muted);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* Insights Card */
@@ -580,18 +580,18 @@
 }
 
 .insight-bubble {
-  background: #121212 !important;
-  border: 2px solid #00ff66 !important;
-  box-shadow: 3px 3px 0px 0px #a855f7 !important;
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
+  box-shadow: none !important;
   padding: 16px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px !important;
   display: flex;
   align-items: flex-start;
   gap: 12px;
 }
 
 .insight-icon {
-  color: #00ff66 !important;
+  color: #C8FF00 !important;
   margin-top: 2px;
   flex-shrink: 0;
 }

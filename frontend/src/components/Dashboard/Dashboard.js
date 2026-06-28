@@ -182,13 +182,27 @@ function Dashboard() {
   const outflowPercent = (totalExpenses / maxFlow) * 100;
 
   return (
-    <div>
-      <div className="dashboard-title-area">
-        <div>
+    <div style={{ position: 'relative' }}>
+      <div className="dashboard-title-area" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute',
+          right: '5%',
+          top: '-80px',
+          fontSize: '260px',
+          fontWeight: 900,
+          color: 'rgba(240, 240, 232, 0.02)',
+          fontFamily: 'var(--font-display)',
+          userSelect: 'none',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}>
+          ₹
+        </div>
+        <div style={{ zIndex: 1, position: 'relative' }}>
           <h1 className="gradient-title">Financial Core Deck</h1>
           <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, {user?.name}. Your financial core dashboard is active.</p>
         </div>
-        <span className="deck-timestamp">
+        <span className="deck-timestamp" style={{ zIndex: 1, position: 'relative' }}>
           {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </span>
       </div>

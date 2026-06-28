@@ -8,13 +8,13 @@
 }
 
 .auth-card-glass {
-  background: #ffffff;
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-lg);
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
+  border-radius: 0px !important;
   padding: 50px 40px;
   width: 100%;
   max-width: 440px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: none !important;
   text-align: center;
 }
 
@@ -28,26 +28,28 @@
 }
 
 .auth-logo svg {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1.5px solid rgba(16, 185, 129, 0.3);
+  background: transparent !important;
+  border: 1px solid #2A2A2A !important;
   padding: 6px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px !important;
   color: var(--accent-success);
 }
 
 .auth-logo h1 {
-  font-size: 26px;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-success) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 36px;
+  font-weight: 400;
+  font-family: var(--font-display);
+  color: #F0F0E8 !important;
+  -webkit-text-fill-color: initial !important;
 }
 
 .auth-card-glass h2 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .auth-form {

@@ -113,11 +113,11 @@
 .filter-select {
   flex: 1;
   min-width: 130px;
-  background: #ffffff;
-  border: 2px solid #000000 !important;
+  background: #121212 !important;
+  border: 1px solid #2A2A2A !important;
   color: var(--text-primary);
   padding: 10px 14px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px !important;
   cursor: pointer;
   outline: none;
   font-size: 14px;
@@ -126,8 +126,7 @@
 }
 
 .filter-select:focus {
-  border-color: #000000 !important;
-  box-shadow: 2px 2px 0px 0px #000000 !important;
+  border-color: #C8FF00 !important;
 }
 
 /* Transaction List Item styling */
@@ -141,17 +140,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
-  border: 2px solid #000000 !important;
-  box-shadow: 3px 3px 0px 0px #000000 !important;
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
+  box-shadow: none !important;
   padding: 16px 20px;
-  border-radius: var(--radius-md);
+  border-radius: 0px !important;
   transition: var(--transition-all);
 }
 
 .transaction-list-item:hover {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 4px 4px 0px 0px #000000 !important;
+  border-color: #C8FF00 !important;
 }
 
 .item-left-desc {
@@ -166,18 +164,18 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: var(--radius-sm);
-  border: 2px solid #000000 !important;
+  border-radius: 0px !important;
+  border: 1px solid #2A2A2A !important;
 }
 
 .item-badge-icon.income {
-  background: #00e676;
-  color: #000000;
+  background: #1A1A1A;
+  color: #C8FF00;
 }
 
 .item-badge-icon.expense {
-  background: #ef4444;
-  color: #000000;
+  background: #1A1A1A;
+  color: #FF2B2B;
 }
 
 .item-primary-info {
@@ -202,11 +200,11 @@
 }
 
 .badge-tag-recurring {
-  background: #ffffff !important;
-  border: 1px solid #000000 !important;
-  color: #000000 !important;
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
+  color: #C8FF00 !important;
   padding: 1px 6px;
-  border-radius: 4px;
+  border-radius: 0px !important;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -230,8 +228,8 @@
   font-weight: 900;
 }
 
-.amount-text-val.income { color: #00e676; -webkit-text-stroke: 1px #000; }
-.amount-text-val.expense { color: #ef4444; -webkit-text-stroke: 1px #000; }
+.amount-text-val.income { color: #C8FF00; }
+.amount-text-val.expense { color: #FF2B2B; }
 
 .date-text-val {
   font-size: 11px;
@@ -245,7 +243,7 @@
   color: var(--text-muted);
   cursor: pointer;
   padding: 6px;
-  border-radius: 50%;
+  border-radius: 0px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,8 +251,8 @@
 }
 
 .btn-icon-delete:hover {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--accent-danger);
+  background: rgba(255, 43, 43, 0.1);
+  color: #FF2B2B;
 }
 
 /* Pagination */
@@ -267,12 +265,12 @@
 }
 
 .btn-page-nav {
-  background: #ffffff !important;
-  border: 2px solid #000000 !important;
-  color: #000000 !important;
-  box-shadow: 2px 2px 0px 0px #000000 !important;
+  background: transparent !important;
+  border: 1px solid #2A2A2A !important;
+  color: #F0F0E8 !important;
+  box-shadow: none !important;
   padding: 8px 16px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px !important;
   cursor: pointer;
   font-size: 13px;
   font-weight: 800;
@@ -280,12 +278,12 @@
 }
 
 .btn-page-nav:hover:not(:disabled) {
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 3px 3px 0px 0px #000000 !important;
+  border-color: #C8FF00 !important;
+  color: #C8FF00 !important;
 }
 
 .btn-page-nav:disabled {
-  opacity: 0.4;
+  opacity: 0.2;
   cursor: not-allowed;
 }
 
