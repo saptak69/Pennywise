@@ -9,16 +9,29 @@ const app = express();
 // CORS configuration supporting dynamic client origins
 const allowedOrigins = [
   'http://localhost:3000',
+  'https://pennywise-rosy.vercel.app',
   process.env.CLIENT_URL // Vercel production frontend
-].filter(Boolean);
+].filter(Boolean).map(url => url.trim().replace(/\/$/, ''));
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl)
-    if (!origin || allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+    if (!origin) return callback(null, true);
+    
+    // In development mode, allow all origins
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    
+    const isAllowed = allowedOrigins.some(allowed => {
+      return allowed.toLowerCase() === origin.trim().toLowerCase();
+    });
+    
+    if (isAllowed) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      console.warn(`[CORS Blocked] Request from origin "${origin}" was blocked. Allowed origins:`, allowedOrigins);
+      callback(null, false);
     }
   },
   credentials: true,
