@@ -144,132 +144,200 @@ function Dashboard() {
     budgetFillClass = 'warning';
   }
 
+  // Calculate Financial Vitality Index (FVI)
+  const calculateFVI = () => {
+    let score = 0;
+    // 1. Savings rate contribution (max 40 pts)
+    score += Math.min(Math.max(savingsRate, 0) * 1.0, 40);
+    // 2. Budget adherence (max 40 pts)
+    if (budgetLimit > 0) {
+      const unusedPercent = Math.max(0, 100 - budgetPercent);
+      score += (unusedPercent / 100) * 40;
+    } else {
+      score += 20; // Default if no budget limit is set
+    }
+    // 3. Savings buffer (max 20 pts)
+    if (savings > 0) {
+      score += 20;
+    } else if (totalIncome > 0) {
+      score += 5;
+    }
+    return Math.round(score);
+  };
+  
+  const fvi = calculateFVI();
+  let fviStatus = 'Stable';
+  let fviColor = 'var(--accent-blue)';
+  if (fvi >= 75) { fviStatus = 'Thriving'; fviColor = 'var(--accent-success)'; }
+  else if (fvi >= 50) { fviStatus = 'Healthy'; fviColor = 'var(--accent-purple)'; }
+  else if (fvi >= 25) { fviStatus = 'Caution'; fviColor = 'var(--accent-warning)'; }
+  else { fviStatus = 'Vulnerable'; fviColor = 'var(--accent-danger)'; }
+
+  const runwayMonths = totalExpenses > 0 ? (savings / totalExpenses) : (savings > 0 ? 12 : 0);
+  const runwayDays = Math.round(runwayMonths * 30.4);
+
   return (
     <div>
       <div className="dashboard-title-area">
         <div>
-          <h1>Overview</h1>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back to Pennywise, {user?.name}!</p>
+          <h1 className="gradient-title">Financial Control Deck</h1>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, {user?.name}. Your control core is online.</p>
         </div>
-        <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
+        <span className="deck-timestamp">
           {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </span>
       </div>
 
-      {/* Summary Stat Cards */}
-      <div className="summary-cards-grid">
-        <div className="stat-card">
-          <div className="stat-icon-wrapper income">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <polyline points="19 12 12 19 5 12"></polyline>
+      {/* Immersive Bento Grid Section */}
+      <div className="bento-grid-dashboard">
+        {/* Vitality Score Bento Widget */}
+        <div className="bento-card fvi-widget">
+          <div className="widget-header">
+            <h3>Financial Vitality</h3>
+            <span className="badge-fvi" style={{ backgroundColor: `${fviColor}18`, color: fviColor, border: `1px solid ${fviColor}33` }}>{fviStatus}</span>
+          </div>
+          <div className="fvi-dial-container">
+            <svg className="fvi-svg" viewBox="0 0 100 100">
+              <circle className="fvi-track" cx="50" cy="50" r="40" />
+              <circle 
+                className="fvi-fill" 
+                cx="50" 
+                cy="50" 
+                r="40" 
+                stroke={fviColor}
+                strokeDasharray="251.2"
+                strokeDashoffset={251.2 - (251.2 * fvi) / 100}
+              />
+              <text x="50" y="56" className="fvi-text">{fvi}%</text>
             </svg>
           </div>
-          <div className="stat-info">
-            <span className="stat-label">Monthly Income</span>
-            <span className="stat-value">₹{totalIncome.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <div className="fvi-footer">
+            <p>Reflects budget discipline and savings velocity.</p>
           </div>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-icon-wrapper expense">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="12" y1="19" x2="12" y2="5"></line>
-              <polyline points="5 12 12 5 19 12"></polyline>
-            </svg>
+        {/* Runway Clock Bento Widget */}
+        <div className="bento-card runway-widget">
+          <div className="widget-header">
+            <h3>Survival Runway</h3>
+            <span className="runway-icon-label">🛡️ Time Buffer</span>
           </div>
-          <div className="stat-info">
-            <span className="stat-label">Monthly Expenses</span>
-            <span className="stat-value">₹{totalExpenses.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <div className="runway-timer">
+            <div className="timer-number">{runwayDays}</div>
+            <div className="timer-unit">DAYS</div>
           </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon-wrapper savings">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-          </div>
-          <div className="stat-info">
-            <span className="stat-label">Monthly Savings</span>
-            <span className="stat-value">₹{savings.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <div className="runway-footer">
+            <p>
+              {runwayMonths > 0 
+                ? `You can live comfortably for ~${runwayMonths.toFixed(1)} months if all income stops today.`
+                : "Add savings or reduce expenses to initialize runway altimeter."}
+            </p>
           </div>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-icon-wrapper rate">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M12 6v6l4 2"></path>
-            </svg>
+        {/* Wealth flow reservoir widget */}
+        <div className="bento-card flow-reservoir-widget">
+          <div className="widget-header">
+            <h3>Reservoir Balance</h3>
+            <span className="flow-balance-ratio">+{savingsRate.toFixed(0)}% Saved</span>
           </div>
-          <div className="stat-info">
-            <span className="stat-label">Savings Rate</span>
-            <span className="stat-value">{savingsRate.toFixed(1)}%</span>
+          <div className="reservoir-visual">
+            <div className="reservoir-bar income-bar">
+              <span className="bar-label">INFLOW</span>
+              <span className="bar-val">₹{Math.round(totalIncome).toLocaleString('en-IN')}</span>
+              <div className="bar-fill-glow" style={{ height: `${totalIncome > 0 ? 100 : 0}%` }}></div>
+            </div>
+            
+            <div className="reservoir-center">
+              <div className="reservoir-core" style={{ animationPlayState: savings > 0 ? 'running' : 'paused' }}>
+                <div className="core-waves"></div>
+              </div>
+              <span className="core-label">SAVINGS CORE</span>
+              <span className="core-val">₹{Math.round(savings).toLocaleString('en-IN')}</span>
+            </div>
+            
+            <div className="reservoir-bar expense-bar">
+              <span className="bar-label">OUTFLOW</span>
+              <span className="bar-val">₹{Math.round(totalExpenses).toLocaleString('en-IN')}</span>
+              <div className="bar-fill-glow" style={{ height: `${totalIncome > 0 ? Math.min((totalExpenses / totalIncome) * 100, 100) : 0}%` }}></div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Budget Limit Tracker */}
-      <div className="budget-card-glass">
-        <div className="budget-card-header">
+      {/* Energy Core / Space Budget fuel gauge */}
+      <div className="budget-card-glass budget-reactor-widget">
+        <div className="budget-card-header reactor-header">
           <h2>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-              <line x1="12" y1="4" x2="12" y2="20"></line>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: 'var(--accent-warning)' }}>
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
-            Monthly Budget Goal
+            Budget containment Core
           </h2>
-
           <div className="budget-actions">
             {isEditingBudget ? (
               <>
                 <input
                   type="number"
-                  placeholder="Enter Limit (₹)"
+                  placeholder="Limit (₹)"
                   value={budgetVal}
                   onChange={(e) => setBudgetVal(e.target.value)}
                   className="budget-input-glass"
                 />
-                <button onClick={handleSaveBudget} className="btn-sm-primary">Save</button>
+                <button onClick={handleSaveBudget} className="btn-sm-primary">Engage</button>
                 {budgetLimit && <button onClick={handleClearBudget} className="btn-sm-secondary" style={{ color: 'var(--accent-danger)' }}>Clear</button>}
                 <button onClick={() => setIsEditingBudget(false)} className="btn-sm-secondary">Cancel</button>
               </>
             ) : (
               <button onClick={() => setIsEditingBudget(true)} className="btn-sm-secondary">
-                {budgetLimit ? 'Modify Limit' : 'Set Budget Limit'}
+                {budgetLimit ? 'Adjust Capacity' : 'Initialize Reactor Core'}
               </button>
             )}
           </div>
         </div>
 
         {budgetLimit ? (
-          <div>
-            <div className="budget-info-row">
-              <span>Expenses: ₹{totalExpenses.toLocaleString('en-IN')} / ₹{budgetLimit.toLocaleString('en-IN')}</span>
-              <span>{budgetPercent.toFixed(0)}% Used</span>
-            </div>
-            
-            <div className="budget-progress-bg">
-              <div 
-                className={`budget-progress-fill ${budgetFillClass}`}
-                style={{ width: `${Math.min(budgetPercent, 100)}%` }}
-              ></div>
+          <div className="reactor-body">
+            <div className="reactor-display">
+              <div className="reactor-metrics">
+                <div className="metric">
+                  <span className="label">CONSUMED RESOURCE</span>
+                  <span className="val">₹{totalExpenses.toLocaleString('en-IN')}</span>
+                </div>
+                <div className="metric align-right">
+                  <span className="label">TOTAL ALLOCATED ENERGY</span>
+                  <span className="val">₹{budgetLimit.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+              
+              <div className="reactor-meter-container">
+                <div className="reactor-meter-track">
+                  <div 
+                    className={`reactor-meter-fill ${budgetFillClass}`}
+                    style={{ width: `${Math.min(budgetPercent, 100)}%` }}
+                  >
+                    <div className="reactor-pulse-glow"></div>
+                  </div>
+                </div>
+                <span className="reactor-percent">{budgetPercent.toFixed(0)}%</span>
+              </div>
             </div>
 
-            <div className="budget-status-row">
+            <div className="reactor-status-msg">
               {isBudgetExceeded ? (
-                <span className="text-danger">Alert: You have exceeded your budget by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}!</span>
+                <span className="status-critical">⚠️ CRITICAL MELTDOWN: Core overloaded by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}!</span>
               ) : budgetPercent >= 80 ? (
-                <span className="text-warning">Warning: You have used {budgetPercent.toFixed(0)}% of your monthly budget.</span>
+                <span className="status-warning">⚡ ALERT: Core containment pacing at {budgetPercent.toFixed(0)}% capacity.</span>
               ) : (
-                <span className="text-success">Good job! You have ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')} remaining of your budget limit.</span>
+                <span className="status-stable">🟢 CORE STABLE: Operating within safe containment. Remaining capacity: ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')}</span>
               )}
             </div>
           </div>
         ) : (
-          <div className="no-budget-prompt" style={{ color: 'var(--text-secondary)', fontSize: '14px', fontStyle: 'italic' }}>
-            No monthly budget goal set. Set a budget limit to track your spending progress actively.
+          <div className="reactor-empty">
+            <p>Containment Core Offline. Set a monthly budget goal to power up core indicators.</p>
           </div>
         )}
       </div>
