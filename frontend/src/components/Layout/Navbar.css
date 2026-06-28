@@ -69,11 +69,11 @@
 }
 
 .nav-item-glass.active {
-  background: #00e676 !important;
-  border: 2px solid #000000 !important;
+  background: #00ff66 !important;
+  border: 2px solid #00ff66 !important;
   color: #000000 !important;
   font-weight: 900 !important;
-  box-shadow: 3px 3px 0px 0px #000000 !important;
+  box-shadow: 3px 3px 0px 0px #a855f7 !important;
 }
 
 .nav-icon {
