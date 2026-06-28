@@ -42,6 +42,12 @@ function App() {
   return (
     <ToastProvider>
       <AuthProvider>
+        <div className="ambient-background">
+          <div className="ambient-blob blob-1"></div>
+          <div className="ambient-blob blob-2"></div>
+          <div className="ambient-blob blob-3"></div>
+          <div className="grid-overlay"></div>
+        </div>
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
