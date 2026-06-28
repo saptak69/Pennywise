@@ -5,6 +5,24 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import './Dashboard.css';
 
+export function getCategoryIcon(category, type) {
+  const getTablerIconClass = (catName, txType) => {
+    if (txType === 'income') return 'ti-arrow-down-left';
+    const cat = catName.toLowerCase();
+    if (cat.includes('food') || cat.includes('restaurant') || cat.includes('drink') || cat.includes('biryani') || cat.includes('zomato') || cat.includes('salad')) return 'ti-salad';
+    if (cat.includes('shop') || cat.includes('fashion') || cat.includes('zara') || cat.includes('clothes') || cat.includes('bag')) return 'ti-shopping-bag';
+    if (cat.includes('travel') || cat.includes('transport') || cat.includes('cab') || cat.includes('uber') || cat.includes('fuel') || cat.includes('car')) return 'ti-car';
+    if (cat.includes('health') || cat.includes('medical') || cat.includes('doctor') || cat.includes('medicine') || cat.includes('fit')) return 'ti-heartbeat';
+    if (cat.includes('bill') || cat.includes('utilities') || cat.includes('phone') || cat.includes('recharge') || cat.includes('internet') || cat.includes('mobile')) return 'ti-device-mobile';
+    if (cat.includes('investment') || cat.includes('sip') || cat.includes('zerodha') || cat.includes('mutual') || cat.includes('line')) return 'ti-chart-line';
+    return 'ti-cash';
+  };
+
+  return (
+    <i className={`ti ${getTablerIconClass(category, type)}`} aria-hidden="true"></i>
+  );
+}
+
 function Dashboard() {
   const { user, updateBudget, API_URL } = useAuth();
   const { showToast } = useToast();
@@ -124,17 +142,6 @@ function Dashboard() {
   const expLineD = expPoints.length > 0 ? `M${expPoints.map(p => `${p.x},${p.y}`).join(' L')}` : '';
   const expAreaD = expPoints.length > 0 ? `M0,120 L${expPoints.map(p => `${p.x},${p.y}`).join(' L')} L560,120 Z` : '';
 
-  const getTablerIcon = (category, type) => {
-    if (type === 'income') return 'ti-arrow-down-left';
-    const cat = category.toLowerCase();
-    if (cat.includes('food') || cat.includes('restaurant') || cat.includes('drink') || cat.includes('biryani') || cat.includes('zomato') || cat.includes('salad')) return 'ti-salad';
-    if (cat.includes('shop') || cat.includes('fashion') || cat.includes('zara') || cat.includes('clothes') || cat.includes('bag')) return 'ti-shopping-bag';
-    if (cat.includes('travel') || cat.includes('transport') || cat.includes('cab') || cat.includes('uber') || cat.includes('fuel') || cat.includes('car')) return 'ti-car';
-    if (cat.includes('health') || cat.includes('medical') || cat.includes('doctor') || cat.includes('medicine') || cat.includes('fit')) return 'ti-heartbeat';
-    if (cat.includes('bill') || cat.includes('utilities') || cat.includes('phone') || cat.includes('recharge') || cat.includes('internet') || cat.includes('mobile')) return 'ti-device-mobile';
-    if (cat.includes('investment') || cat.includes('sip') || cat.includes('zerodha') || cat.includes('mutual') || cat.includes('line')) return 'ti-chart-line';
-    return 'ti-cash';
-  };
 
   return (
     <>
@@ -220,7 +227,7 @@ function Dashboard() {
             return (
               <div key={t._id} className="pw-txn">
                 <div className="pw-txn-icon">
-                  <i className={`ti ${getTablerIcon(t.category, t.type)}`} aria-hidden="true"></i>
+                  {getCategoryIcon(t.category, t.type)}
                 </div>
                 <div>
                   <div className="pw-txn-name">{t.description}</div>
