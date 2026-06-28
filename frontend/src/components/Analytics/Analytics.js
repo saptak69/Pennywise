@@ -31,15 +31,15 @@ ChartJS.register(
 );
 
 const CATEGORY_COLORS = {
-  food: '#818cf8',      // Indigo
-  travel: '#38bdf8',    // Sky
-  shopping: '#f472b6',  // Pink
-  health: '#f87171',    // Red
-  bills: '#fbbf24',     // Amber
-  others: '#a78bfa'     // Purple
+  food: '#c084fc',      // Neon Purple
+  travel: '#06b6d4',    // Cyber Cyan
+  shopping: '#ec4899',  // Neon Pink
+  health: '#ff477e',    // Cyber Red
+  bills: '#eab308',     // Electric Gold
+  others: '#6366f1'     // Electric Indigo
 };
 
-const DEFAULT_COLOR = '#64748b'; // Slate
+const DEFAULT_COLOR = '#7c4ec2'; // Violet-Muted
 
 function Analytics() {
   const { API_URL } = useAuth();
@@ -127,7 +127,7 @@ function Analytics() {
       {
         label: 'Income',
         data: trendIncome,
-        backgroundColor: 'rgba(52, 211, 153, 0.7)',
+        backgroundColor: 'rgba(16, 185, 129, 0.78)',
         borderColor: 'var(--accent-success)',
         borderWidth: 1.5,
         borderRadius: 4
@@ -135,7 +135,7 @@ function Analytics() {
       {
         label: 'Expenses',
         data: trendExpense,
-        backgroundColor: 'rgba(248, 113, 113, 0.7)',
+        backgroundColor: 'rgba(255, 71, 126, 0.78)',
         borderColor: 'var(--accent-danger)',
         borderWidth: 1.5,
         borderRadius: 4

@@ -46,6 +46,7 @@ function App() {
           <div className="ambient-blob blob-1"></div>
           <div className="ambient-blob blob-2"></div>
           <div className="ambient-blob blob-3"></div>
+          <div className="ambient-blob blob-4"></div>
           <div className="grid-overlay"></div>
         </div>
         <Router>
