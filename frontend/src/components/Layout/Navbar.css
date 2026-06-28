@@ -69,11 +69,11 @@
 }
 
 .nav-item-glass.active {
-  background: linear-gradient(135deg, rgba(192, 132, 252, 0.18) 0%, rgba(168, 85, 247, 0.06) 100%);
-  border-color: rgba(192, 132, 252, 0.3);
-  color: var(--accent-purple);
-  font-weight: 700;
-  box-shadow: inset 0 0 12px 0 rgba(192, 132, 252, 0.08);
+  background: #facc15 !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  box-shadow: 3px 3px 0px 0px #000000 !important;
 }
 
 .nav-icon {

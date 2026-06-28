@@ -119,10 +119,10 @@ function Goals() {
       <div className="goals-layout-grid">
         {/* Left Side: Create form */}
         <div className="transaction-form-panel">
-          <h3>New Savings Goal</h3>
+          <h3 style={{ textTransform: 'uppercase', fontWeight: 900 }}>START STACKING 💰</h3>
           <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-              <label className="form-label" htmlFor="goal-title">Goal Title</label>
+              <label className="form-label" htmlFor="goal-title">Piggy Bank Name</label>
               <input
                 id="goal-title"
                 type="text"
@@ -130,13 +130,13 @@ function Goals() {
                 value={formData.title}
                 onChange={handleFormChange}
                 className="form-input"
-                placeholder="e.g. Buy New Laptop"
+                placeholder="e.g. New Gaming Setup 🎮"
                 required
               />
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="goal-target">Target Amount (₹)</label>
+              <label className="form-label" htmlFor="goal-target">Target Bread (₹)</label>
               <input
                 id="goal-target"
                 type="number"
@@ -151,7 +151,7 @@ function Goals() {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="goal-current">Starting Amount (₹)</label>
+              <label className="form-label" htmlFor="goal-current">Starting Bread (₹)</label>
               <input
                 id="goal-current"
                 type="number"
@@ -160,7 +160,7 @@ function Goals() {
                 value={formData.currentAmount}
                 onChange={handleFormChange}
                 className="form-input"
-                placeholder="Optional starting savings"
+                placeholder="Bread you already have"
               />
             </div>
 
@@ -177,14 +177,14 @@ function Goals() {
             </div>
 
             <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '10px' }} disabled={isSubmitting}>
-              {isSubmitting ? 'Creating...' : 'Create Goal'}
+              {isSubmitting ? 'Setting target...' : 'Secure target 🎯'}
             </button>
           </form>
         </div>
 
         {/* Right Side: Goals List */}
         <div className="transaction-list-panel">
-          <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '20px' }}>Active Savings Targets</h2>
+          <h2 style={{ fontSize: '18px', fontWeight: 900, marginBottom: '20px', textTransform: 'uppercase' }}>PIGGY BANKS 🐷</h2>
 
           {loading ? (
             <div className="no-data-placeholder">
@@ -218,11 +218,11 @@ function Goals() {
                         <div className="goal-progress-bar-fill" style={{ width: `${percent}%` }}></div>
                       </div>
 
-                      <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+                      <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 700 }}>
                         {remaining > 0 ? (
-                          <span>₹{remaining.toLocaleString('en-IN')} remaining to goal limit</span>
+                          <span>₹{remaining.toLocaleString('en-IN')} left to secure the bag</span>
                         ) : (
-                          <span className="text-success" style={{ fontWeight: 600 }}>Goal Completed! 🎉</span>
+                          <span className="text-success" style={{ color: '#22c55e', fontWeight: 900 }}>BAG SECURED! 🥳💸</span>
                         )}
                       </div>
                     </div>
@@ -242,8 +242,9 @@ function Goals() {
                             value={contributions[goal._id] || ''}
                             onChange={(e) => handleContributionChange(goal._id, e.target.value)}
                             className="goal-add-input"
+                            style={{ border: '2px solid #000', color: '#000' }}
                           />
-                          <button onClick={() => handleAddSavings(goal)} className="btn-sm-primary">Add Savings</button>
+                          <button onClick={() => handleAddSavings(goal)} className="btn-sm-primary" style={{ border: '2px solid #000', color: '#000' }}>Stack bread 💸</button>
                         </div>
                       )}
                     </div>
