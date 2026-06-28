@@ -1,77 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import './Dashboard.css';
 
-// SVG Category Icons mapping helper
-export function getCategoryIcon(category, type) {
-  const cleanCat = category.toLowerCase();
-  
-  if (type === 'income') {
-    return (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19"></line>
-        <polyline points="19 12 12 19 5 12"></polyline>
-      </svg>
-    );
-  }
-
-  switch (cleanCat) {
-    case 'food':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-      );
-    case 'travel':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12" y2="18.01"></line>
-        </svg>
-      );
-    case 'shopping':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-      );
-    case 'health':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-        </svg>
-      );
-    case 'bills':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
-      );
-    default:
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="16" x2="12" y2="12"></line>
-          <line x1="12" y1="8" x2="12.01" y2="8"></line>
-        </svg>
-      );
-  }
-}
-
 function Dashboard() {
   const { user, updateBudget, API_URL } = useAuth();
   const { showToast } = useToast();
+  const navigate = useNavigate();
   
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
   const [recentTransactions, setRecentTransactions] = useState([]);
+  const [goals, setGoals] = useState([]);
   
   // Budget modification states
   const [budgetVal, setBudgetVal] = useState('');
@@ -85,12 +27,14 @@ function Dashboard() {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const [analyticsRes, transactionsRes] = await Promise.all([
+      const [analyticsRes, transactionsRes, goalsRes] = await Promise.all([
         axios.get(`${API_URL}/api/analytics`),
-        axios.get(`${API_URL}/api/transactions?limit=5`)
+        axios.get(`${API_URL}/api/transactions?limit=5`),
+        axios.get(`${API_URL}/api/goals`)
       ]);
       setAnalytics(analyticsRes.data);
       setRecentTransactions(transactionsRes.data.transactions);
+      setGoals(goalsRes.data);
       if (user?.monthlyBudget) {
         setBudgetVal(user.monthlyBudget.toString());
       }
@@ -113,334 +57,263 @@ function Dashboard() {
     }
   };
 
-  const handleClearBudget = async () => {
-    const success = await updateBudget(null);
-    if (success) {
-      setBudgetVal('');
-      setIsEditingBudget(false);
-      fetchDashboardData();
-    }
-  };
-
   if (loading) {
     return (
-      <div className="no-data-placeholder" style={{ minHeight: '60vh' }}>
-        <div style={{ color: 'var(--accent-purple)', fontSize: '18px', fontWeight: 600 }}>Loading Dashboard...</div>
+      <div className="no-data-placeholder" style={{ minHeight: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ color: '#c8ff00', fontSize: '18px', fontWeight: 600 }}>Loading Dashboard...</div>
       </div>
     );
   }
 
   const { totalIncome = 0, totalExpenses = 0, savings = 0, savingsRate = 0 } = analytics?.summary || {};
+  const budgetLimit = user?.monthlyBudget || 0;
 
   // Budget calculations
-  const budgetLimit = user?.monthlyBudget;
-  const budgetPercent = budgetLimit > 0 ? (totalExpenses / budgetLimit) * 100 : 0;
-  const isBudgetExceeded = totalExpenses > budgetLimit;
-  
-  let budgetFillClass = 'safe';
-  if (budgetPercent >= 100) {
-    budgetFillClass = 'exceeded';
-  } else if (budgetPercent >= 80) {
-    budgetFillClass = 'warning';
-  }
-
-  // Calculate Financial Vitality Index (FVI)
-  const calculateFVI = () => {
-    let score = 0;
-    // 1. Savings rate contribution (max 40 pts)
-    score += Math.min(Math.max(savingsRate, 0) * 1.0, 40);
-    // 2. Budget adherence (max 40 pts)
-    if (budgetLimit > 0) {
-      const unusedPercent = Math.max(0, 100 - budgetPercent);
-      score += (unusedPercent / 100) * 40;
-    } else {
-      score += 20; // Default if no budget limit is set
-    }
-    // 3. Savings buffer (max 20 pts)
-    if (savings > 0) {
-      score += 20;
-    } else if (totalIncome > 0) {
-      score += 5;
-    }
-    return Math.round(score);
+  const categoryDataObj = analytics?.categoryData || {};
+  const categoryBudgetLimits = {
+    food: 10000,
+    shopping: 5000,
+    travel: 4000,
+    bills: 8000,
+    others: 10000
   };
   
-  const fvi = calculateFVI();
-  let fviStatus = 'Stable';
-  let fviColor = 'var(--accent-blue)';
-  if (fvi >= 75) { fviStatus = 'Thriving'; fviColor = 'var(--accent-success)'; }
-  else if (fvi >= 50) { fviStatus = 'Healthy'; fviColor = 'var(--accent-purple)'; }
-  else if (fvi >= 25) { fviStatus = 'Caution'; fviColor = 'var(--accent-warning)'; }
-  else { fviStatus = 'Vulnerable'; fviColor = 'var(--accent-danger)'; }
+  // Scale category budgets based on user's total budget limit
+  const totalDefaultBudget = 37000;
+  const budgetScale = budgetLimit > 0 ? (budgetLimit / totalDefaultBudget) : 1;
+  
+  const budgetsList = Object.keys(categoryBudgetLimits).map(cat => {
+    const expense = categoryDataObj[cat]?.expense || 0;
+    const limit = Math.round(categoryBudgetLimits[cat] * budgetScale);
+    const percent = limit > 0 ? Math.min((expense / limit) * 100, 100) : 0;
+    
+    let fillClass = '';
+    if (percent >= 100) fillClass = 'danger';
+    else if (percent >= 80) fillClass = 'warn';
+    
+    return {
+      name: cat.charAt(0).toUpperCase() + cat.slice(1),
+      spent: expense,
+      limit: limit,
+      percent: percent,
+      fillClass: fillClass
+    };
+  });
 
-  const runwayMonths = totalExpenses > 0 ? Math.max(savings / totalExpenses, 0) : (savings > 0 ? 12 : 0);
-  const runwayDays = Math.round(runwayMonths * 30.4);
+  // Calculate cashflow SVG points based on actual trend data
+  const trendData = analytics?.monthlyTrend || [];
+  const maxFlow = trendData.length > 0 
+    ? Math.max(...trendData.map(item => Math.max(item.income, item.expense)), 10000) 
+    : 10000;
 
-  // Reservoir visual calculations relative to peak flow
-  const maxFlow = Math.max(totalIncome, totalExpenses, 1);
-  const inflowPercent = (totalIncome / maxFlow) * 100;
-  const outflowPercent = (totalExpenses / maxFlow) * 100;
+  const getPoints = (type) => {
+    return trendData.map((item, idx) => {
+      const val = type === 'income' ? item.income : item.expense;
+      const x = Math.round(idx * (560 / Math.max(trendData.length - 1, 1)));
+      const y = Math.round(110 - (val / maxFlow) * 85);
+      return { x, y };
+    });
+  };
+
+  const incPoints = getPoints('income');
+  const expPoints = getPoints('expense');
+
+  const incLineD = incPoints.length > 0 ? `M${incPoints.map(p => `${p.x},${p.y}`).join(' L')}` : '';
+  const incAreaD = incPoints.length > 0 ? `M0,120 L${incPoints.map(p => `${p.x},${p.y}`).join(' L')} L560,120 Z` : '';
+  
+  const expLineD = expPoints.length > 0 ? `M${expPoints.map(p => `${p.x},${p.y}`).join(' L')}` : '';
+  const expAreaD = expPoints.length > 0 ? `M0,120 L${expPoints.map(p => `${p.x},${p.y}`).join(' L')} L560,120 Z` : '';
+
+  const getTablerIcon = (category, type) => {
+    if (type === 'income') return 'ti-arrow-down-left';
+    const cat = category.toLowerCase();
+    if (cat.includes('food') || cat.includes('restaurant') || cat.includes('drink') || cat.includes('biryani') || cat.includes('zomato') || cat.includes('salad')) return 'ti-salad';
+    if (cat.includes('shop') || cat.includes('fashion') || cat.includes('zara') || cat.includes('clothes') || cat.includes('bag')) return 'ti-shopping-bag';
+    if (cat.includes('travel') || cat.includes('transport') || cat.includes('cab') || cat.includes('uber') || cat.includes('fuel') || cat.includes('car')) return 'ti-car';
+    if (cat.includes('health') || cat.includes('medical') || cat.includes('doctor') || cat.includes('medicine') || cat.includes('fit')) return 'ti-heartbeat';
+    if (cat.includes('bill') || cat.includes('utilities') || cat.includes('phone') || cat.includes('recharge') || cat.includes('internet') || cat.includes('mobile')) return 'ti-device-mobile';
+    if (cat.includes('investment') || cat.includes('sip') || cat.includes('zerodha') || cat.includes('mutual') || cat.includes('line')) return 'ti-chart-line';
+    return 'ti-cash';
+  };
 
   return (
-    <div style={{ position: 'relative' }}>
-      <div className="dashboard-title-area" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute',
-          right: '5%',
-          top: '-80px',
-          fontSize: '260px',
-          fontWeight: 900,
-          color: 'rgba(240, 240, 232, 0.02)',
-          fontFamily: 'var(--font-display)',
-          userSelect: 'none',
-          pointerEvents: 'none',
-          zIndex: 0
-        }}>
-          ₹
-        </div>
-        <div style={{ zIndex: 1, position: 'relative' }}>
-          <h1 className="gradient-title">Financial Core Deck</h1>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Welcome back, {user?.name}. Your financial core dashboard is active.</p>
-        </div>
-        <span className="deck-timestamp" style={{ zIndex: 1, position: 'relative' }}>
-          {new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-        </span>
-      </div>
+    <>
+      <main className="pw-main">
+        <div className="pw-eyebrow">Net worth — {new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}</div>
+        <div className="pw-hero-amount">₹{savings.toLocaleString('en-IN')}</div>
+        <div className="pw-hero-sub">Updated just now &nbsp;·&nbsp; <span>{savings >= 0 ? '+' : ''}₹{savings.toLocaleString('en-IN')} this month</span></div>
 
-      {/* Immersive Bento Grid Section */}
-      <div className="bento-grid-dashboard">
-        {/* Vitality Score Bento Widget */}
-        <div className="bento-card fvi-widget">
-          <div className="widget-header">
-            <h3>Financial Vitality</h3>
-            <span className="badge-fvi" style={{ backgroundColor: `${fviColor}18`, color: fviColor }}>{fviStatus}</span>
-          </div>
-          <div className="fvi-dial-container">
-            <svg className="fvi-svg" viewBox="0 0 100 100">
-              <circle className="fvi-track" cx="50" cy="50" r="40" />
-              <circle 
-                className="fvi-fill" 
-                cx="50" 
-                cy="50" 
-                r="40" 
-                stroke={fviColor}
-                strokeDasharray="251.2"
-                strokeDashoffset={251.2 - (251.2 * fvi) / 100}
-              />
-              <text x="50" y="56" className="fvi-text">{fvi}%</text>
-            </svg>
-          </div>
-          <div className="fvi-footer">
-            <p>Reflects budget discipline and savings velocity.</p>
-          </div>
-        </div>
-
-        {/* Runway Clock Bento Widget */}
-        <div className="bento-card runway-widget">
-          <div className="widget-header">
-            <h3>Cashflow Runway</h3>
-            <span className="runway-icon-label">Time Buffer</span>
-          </div>
-          <div className="runway-timer">
-            <div className="timer-number">{runwayDays}</div>
-            <div className="timer-unit">DAYS</div>
-          </div>
-          <div className="runway-footer">
-            <p>
-              {runwayMonths > 0 
-                ? `Estimated survival of ~${runwayMonths.toFixed(1)} months if all income streams stop today.`
-                : "Add savings or reduce expenses to initialize runway calculation."}
-            </p>
-          </div>
-        </div>
-
-        {/* Wealth flow reservoir widget */}
-        <div className="bento-card flow-reservoir-widget">
-          <div className="widget-header">
-            <h3>Reservoir Cashflow</h3>
-            <span className="flow-balance-ratio">
-              {savingsRate >= 0 ? '+' : ''}{savingsRate.toFixed(0)}% Saved
-            </span>
-          </div>
-          <div className="reservoir-visual">
-            <div className="reservoir-bar income-bar">
-              <span className="bar-label">INFLOW</span>
-              <span className="bar-val">₹{Math.round(totalIncome).toLocaleString('en-IN')}</span>
-              <div className="bar-fill-glow" style={{ height: `${inflowPercent}%` }}></div>
+        <div className="pw-stats-row">
+          <div className="pw-stat">
+            <div className="pw-stat-label">Income</div>
+            <div className="pw-stat-val green">₹{totalIncome.toLocaleString('en-IN')}</div>
+            <div className="pw-stat-delta up">
+              {savingsRate >= 0 ? `↑ ${savingsRate.toFixed(1)}% save rate` : 'Tracked inflows'}
             </div>
-            
-            <div className="reservoir-center">
-              <div className="reservoir-core" style={{ animationPlayState: savings > 0 ? 'running' : 'paused' }}>
-                <div className="core-waves"></div>
-              </div>
-              <span className="core-label">SAVINGS</span>
-              <span className="core-val">₹{Math.round(savings).toLocaleString('en-IN')}</span>
+          </div>
+          <div className="pw-stat">
+            <div className="pw-stat-label">Expenses</div>
+            <div className="pw-stat-val red">₹{totalExpenses.toLocaleString('en-IN')}</div>
+            <div className="pw-stat-delta dn">
+              {budgetLimit > 0 ? `${(totalExpenses / budgetLimit * 100).toFixed(0)}% budget limit` : 'Tracked outflows'}
             </div>
-            
-            <div className="reservoir-bar expense-bar">
-              <span className="bar-label">OUTFLOW</span>
-              <span className="bar-val">₹{Math.round(totalExpenses).toLocaleString('en-IN')}</span>
-              <div className="bar-fill-glow" style={{ height: `${outflowPercent}%` }}></div>
+          </div>
+          <div className="pw-stat">
+            <div className="pw-stat-label">Saved</div>
+            <div className="pw-stat-val">₹{savings.toLocaleString('en-IN')}</div>
+            <div className="pw-stat-delta up">
+              {savingsRate >= 0 ? `${savingsRate.toFixed(0)}% save rate` : '0% save rate'}
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Energy Core / Space Budget fuel gauge */}
-      <div className="budget-card-glass budget-reactor-widget">
-        <div className="budget-card-header reactor-header">
-          <h2>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: 'var(--accent-warning)' }}>
-              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-              <polyline points="2 17 12 22 22 17"></polyline>
-              <polyline points="2 12 12 17 22 12"></polyline>
-            </svg>
-            Monthly Budget Limit
-          </h2>
-          <div className="budget-actions">
-            {isEditingBudget ? (
+        <div className="pw-section-head">
+          <div className="pw-section-title">Cashflow</div>
+          <div className="pw-section-action">6 months ↗</div>
+        </div>
+        <div className="pw-chart-area">
+          <div className="pw-chart-label">
+            <span className="hi">↑ ₹{(maxFlow/1000).toFixed(0)}K</span>
+            <span className="lo">↓ 0K</span>
+          </div>
+          <svg className="pw-chart-svg" viewBox="0 0 560 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" role="img" aria-label="Six month cashflow chart">
+            <defs>
+              <linearGradient id="incGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#C8FF00" stopOpacity="0.18"/>
+                <stop offset="100%" stopColor="#C8FF00" stopOpacity="0"/>
+              </linearGradient>
+              <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#FF2B2B" stopOpacity="0.12"/>
+                <stop offset="100%" stopColor="#FF2B2B" stopOpacity="0"/>
+              </linearGradient>
+            </defs>
+            {trendData.length > 0 ? (
               <>
-                <input
-                  type="number"
-                  placeholder="Limit (₹)"
-                  value={budgetVal}
-                  onChange={(e) => setBudgetVal(e.target.value)}
-                  className="budget-input-glass"
-                />
-                <button onClick={handleSaveBudget} className="btn-sm-primary">Engage</button>
-                {budgetLimit && <button onClick={handleClearBudget} className="btn-sm-secondary" style={{ color: 'var(--accent-danger)' }}>Clear</button>}
-                <button onClick={() => setIsEditingBudget(false)} className="btn-sm-secondary">Cancel</button>
+                <path d={incAreaD} fill="url(#incGrad)"/>
+                <path d={incLineD} fill="none" stroke="#C8FF00" strokeWidth="1.5"/>
+                <path d={expAreaD} fill="url(#expGrad)"/>
+                <path d={expLineD} fill="none" stroke="#FF2B2B" strokeWidth="1" strokeDasharray="3,3"/>
               </>
+            ) : null}
+            <line x1="0" y1="110" x2="560" y2="110" stroke="rgba(240,240,232,0.06)" strokeWidth="1"/>
+            <line x1="0" y1="80" x2="560" y2="80" stroke="rgba(240,240,232,0.04)" strokeWidth="1"/>
+            <line x1="0" y1="50" x2="560" y2="50" stroke="rgba(240,240,232,0.04)" strokeWidth="1"/>
+          </svg>
+          <div className="pw-chart-months">
+            {trendData.length > 0 ? (
+              trendData.map((item, idx) => <span key={idx}>{item.month}</span>)
             ) : (
-              <button onClick={() => setIsEditingBudget(true)} className="btn-sm-secondary">
-                {budgetLimit ? 'Adjust Budget Limit' : 'Initialize Budget Limit'}
-              </button>
+              <>
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+              </>
             )}
           </div>
         </div>
 
-        {budgetLimit ? (
-          <div className="reactor-body">
-            <div className="reactor-display">
-              <div className="reactor-metrics">
-                <div className="metric">
-                  <span className="label">CONSUMED BUDGET</span>
-                  <span className="val">₹{totalExpenses.toLocaleString('en-IN')}</span>
+        <div className="pw-section-head">
+          <div className="pw-section-title">Recent</div>
+          <Link to="/transactions" className="pw-section-action">All transactions ↗</Link>
+        </div>
+        <div className="pw-txn-list">
+          {recentTransactions.map(t => {
+            const isOut = t.type === 'expense';
+            return (
+              <div key={t._id} className="pw-txn">
+                <div className="pw-txn-icon">
+                  <i className={`ti ${getTablerIcon(t.category, t.type)}`} aria-hidden="true"></i>
                 </div>
-                <div className="metric align-right">
-                  <span className="label">ALLOCATED CAPACITY</span>
-                  <span className="val">₹{budgetLimit.toLocaleString('en-IN')}</span>
+                <div>
+                  <div className="pw-txn-name">{t.description}</div>
+                  <div className="pw-txn-cat">{t.category}</div>
                 </div>
-              </div>
-              
-              <div className="reactor-meter-container">
-                <div className="reactor-meter-track">
-                  <div 
-                    className={`reactor-meter-fill ${budgetFillClass}`}
-                    style={{ width: `${Math.min(budgetPercent, 100)}%` }}
-                  >
-                    <div className="reactor-pulse-glow"></div>
+                <div>
+                  <div className={`pw-txn-amt ${isOut ? 'out' : 'inn'}`}>
+                    {isOut ? '−' : '+'}₹{t.amount.toLocaleString('en-IN')}
+                  </div>
+                  <div className="pw-txn-date">
+                    {new Date(t.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}, {new Date(t.date).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
                   </div>
                 </div>
-                <span className="reactor-percent">{budgetPercent.toFixed(0)}%</span>
+              </div>
+            );
+          })}
+          {recentTransactions.length === 0 && (
+            <div style={{ color: '#444', fontStyle: 'italic', padding: '16px 0', fontSize: '13px' }}>
+              No transactions recorded yet.
+            </div>
+          )}
+        </div>
+      </main>
+
+      <aside className="pw-right">
+        <div className="pw-section-title" style={{ marginBottom: '20px' }}>Budgets</div>
+
+        {budgetsList.map((b, idx) => (
+          <div key={idx} className="pw-budget-item">
+            <div className="pw-budget-top">
+              <div className="pw-budget-name">{b.name}</div>
+              <div className="pw-budget-nums">
+                <span>₹{b.spent.toLocaleString('en-IN')}</span> / ₹{b.limit.toLocaleString('en-IN')}
               </div>
             </div>
-
-            <div className="reactor-status-msg">
-              {isBudgetExceeded ? (
-                <span className="status-critical">⚠️ Critical Alert: Budget overloaded by ₹{(totalExpenses - budgetLimit).toLocaleString('en-IN')}!</span>
-              ) : budgetPercent >= 80 ? (
-                <span className="status-warning">⚡ Pacing Alert: Spending capacity has reached {budgetPercent.toFixed(0)}%.</span>
-              ) : (
-                <span className="status-stable">🟢 Status Stable: Operating within containment limit. Remaining capacity: ₹{(budgetLimit - totalExpenses).toLocaleString('en-IN')}</span>
-              )}
+            <div className="pw-bar-bg">
+              <div className={`pw-bar-fill ${b.fillClass}`} style={{ width: `${b.percent}%` }}></div>
             </div>
           </div>
-        ) : (
-          <div className="reactor-empty">
-            <p>Budget Core Offline. Set a monthly budget goal to power up core indicators.</p>
+        ))}
+
+        <div style={{ marginTop: '24px', padding: '16px', background: '#111', border: '1px solid rgba(240,240,232,0.06)' }}>
+          <div className="pw-budget-name" style={{ marginBottom: '8px', fontSize: '10px' }}>Total Limit</div>
+          {isEditingBudget ? (
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <input
+                type="number"
+                value={budgetVal}
+                onChange={(e) => setBudgetVal(e.target.value)}
+                className="budget-input-glass"
+                style={{ width: '100%', padding: '6px', background: '#0A0A0A', border: '1px solid #2A2A2A', color: '#FFF' }}
+              />
+              <button onClick={handleSaveBudget} className="btn-sm-primary" style={{ padding: '6px 12px' }}>Save</button>
+              <button onClick={() => setIsEditingBudget(false)} className="btn-sm-secondary" style={{ padding: '6px 12px' }}>X</button>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span className="pw-budget-nums" style={{ fontSize: '14px', color: '#C8FF00' }}>
+                ₹{budgetLimit ? budgetLimit.toLocaleString('en-IN') : 'None'}
+              </span>
+              <span onClick={() => setIsEditingBudget(true)} style={{ color: '#C8FF00', fontSize: '10px', textTransform: 'uppercase', cursor: 'pointer', letterSpacing: '1px' }}>
+                Adjust ↗
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="pw-sidebar-divider" style={{ margin: '24px 0' }}></div>
+
+        <div className="pw-section-title" style={{ marginBottom: '16px' }}>Goals</div>
+
+        {goals.slice(0, 3).map(goal => {
+          const percent = goal.targetAmount > 0 ? Math.round((goal.currentAmount / goal.targetAmount) * 100) : 0;
+          return (
+            <div key={goal._id} className="pw-goal-card">
+              <div className="pw-goal-title">{goal.title}</div>
+              <div className="pw-goal-sub">Target — ₹{goal.targetAmount.toLocaleString('en-IN')}</div>
+              <div className="pw-goal-progress">{percent}%</div>
+              <div className="pw-bar-bg"><div className="pw-bar-fill" style={{ width: `${percent}%` }}></div></div>
+            </div>
+          );
+        })}
+        {goals.length === 0 && (
+          <div className="pw-goal-sub" style={{ color: '#444', fontStyle: 'italic', marginBottom: '16px' }}>
+            No savings goals.
           </div>
         )}
-      </div>
 
-      {/* Main Grid: Recent Transactions + Spending Insights */}
-      <div className="dashboard-grid">
-        <div className="section-glass">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2>Recent Transactions</h2>
-            <Link to="/transactions" style={{ fontSize: '13px', color: 'var(--accent-purple)', fontWeight: 600 }}>View All</Link>
-          </div>
-          
-          {recentTransactions.length > 0 ? (
-            <div className="recent-list">
-              {recentTransactions.map((t) => (
-                <div key={t._id} className="recent-item">
-                  <div className="item-left">
-                    <div className={`item-icon-circle ${t.type}`}>
-                      {getCategoryIcon(t.category, t.type)}
-                    </div>
-                    <div className="item-details">
-                      <span className="item-desc">{t.description}</span>
-                      <span className="item-cat">{t.category}</span>
-                    </div>
-                  </div>
-                  <div className="item-right">
-                    <span className={`item-amount ${t.type}`}>
-                      {t.type === 'income' ? '+' : '-'} ₹{t.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                    </span>
-                    <span className="item-date">{new Date(t.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="no-data-placeholder">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <span>No transactions recorded yet. Add your first record in the Transactions tab.</span>
-            </div>
-          )}
-        </div>
-
-        <div className="section-glass">
-          <h2>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-            </svg>
-            Spending Insights
-          </h2>
-
-          {analytics?.insights && analytics.insights.length > 0 ? (
-            <div className="insights-list">
-              {analytics.insights.map((insight, idx) => (
-                <div key={idx} className="insight-bubble">
-                  <span className="insight-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                      <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
-                  </span>
-                  <span className="insight-text">{insight}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="no-data-placeholder">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-              </svg>
-              <span>Not enough transaction history to generate insights yet.</span>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+        <button className="pw-add-btn" onClick={() => navigate('/goals')}>
+          <i className="ti ti-plus" aria-hidden="true"></i> New goal ↗
+        </button>
+      </aside>
+    </>
   );
 }
 

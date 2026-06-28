@@ -1,0 +1,55 @@
+.pw-sidebar {
+  border-right: 1px solid rgba(240, 240, 232, 0.08);
+  padding: 32px 0;
+  background-color: #0A0A0A;
+  display: flex;
+  flex-direction: column;
+}
+
+.pw-sidebar-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #444;
+  padding: 0 24px;
+  margin-bottom: 12px;
+}
+
+.pw-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all 0.12s;
+  text-decoration: none;
+}
+
+.pw-sidebar-item:hover {
+  color: #F0F0E8;
+  border-left-color: rgba(200, 255, 0, 0.3);
+}
+
+.pw-sidebar-item.active {
+  color: #F0F0E8;
+  border-left-color: #C8FF00;
+}
+
+.pw-sidebar-item i {
+  font-size: 15px;
+}
+
+.pw-sidebar-divider {
+  height: 1px;
+  background: rgba(240, 240, 232, 0.06);
+  margin: 20px 24px;
+}
+
+@media (max-width: 768px) {
+  .pw-sidebar {
+    display: none; /* Hide left sidebar on small screens to save space */
+  }
+}

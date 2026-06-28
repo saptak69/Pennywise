@@ -110,7 +110,7 @@ function Goals() {
   };
 
   return (
-    <div>
+    <main className="pw-main">
       <div style={{ marginBottom: '30px' }}>
         <h1 className="gradient-title" style={{ fontSize: '28px' }}>Savings Targets</h1>
         <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Track your progress towards long-term savings targets</p>
@@ -262,7 +262,7 @@ function Goals() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -30,7 +30,9 @@ function Login() {
   };
 
   return (
-    <div className="auth-bg">
+    <div className="pw-root auth-bg">
+      <div className="pw-grid-bg"></div>
+      <div className="pw-watermark">₹</div>
       <div className="auth-card-glass">
         <div className="auth-logo">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

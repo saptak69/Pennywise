@@ -172,7 +172,7 @@ function Analytics() {
   };
 
   return (
-    <div>
+    <main className="pw-main">
       <div style={{ marginBottom: '30px' }}>
         <h1 className="gradient-title" style={{ fontSize: '28px' }}>Analytics Deck</h1>
         <p style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>Visual charts representing your spending patterns</p>
@@ -265,7 +265,7 @@ function Analytics() {
           <span style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>Not enough data to render charts. Add income and expense logs to unlock analytics.</span>
         </div>
       )}
-    </div>
+    </main>
   );
 }
 

@@ -179,7 +179,7 @@ function Transactions() {
   };
 
   return (
-    <div>
+    <main className="pw-main">
       <div className="list-panel-header">
         <div>
           <h1 className="gradient-title" style={{ fontSize: '28px' }}>Transactions</h1>
@@ -442,7 +442,7 @@ function Transactions() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ToastProvider } from './contexts/ToastContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Layout/Navbar';
+import Sidebar from './components/Layout/Sidebar';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -17,8 +18,8 @@ function ProtectedRoute({ children }) {
   
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#0f172a' }}>
-        <div className="loading" style={{ color: '#818cf8', fontSize: '20px', fontWeight: 600 }}>Loading Pennywise...</div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#0a0a0a' }}>
+        <div className="loading" style={{ color: '#c8ff00', fontSize: '20px', fontWeight: 600 }}>Loading Pennywise...</div>
       </div>
     );
   }
@@ -28,10 +29,16 @@ function ProtectedRoute({ children }) {
 
 // Wrapper for layouts that require sidebar navbar
 function AppLayout({ children }) {
+  const location = useLocation();
+  const showRightSidebar = location.pathname === '/';
+  
   return (
-    <div className="app-container">
+    <div className="pw-root">
+      <div className="pw-grid-bg"></div>
+      <div className="pw-watermark">₹</div>
       <Navbar />
-      <div className="main-content">
+      <div className={`pw-body ${showRightSidebar ? 'has-right-sidebar' : ''}`}>
+        <Sidebar />
         {children}
       </div>
     </div>
