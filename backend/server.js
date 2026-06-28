@@ -14,26 +14,7 @@ const allowedOrigins = [
 ].filter(Boolean).map(url => url.trim().replace(/\/$/, ''));
 
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
-    
-    // In development mode, allow all origins
-    if (process.env.NODE_ENV !== 'production') {
-      return callback(null, true);
-    }
-    
-    const isAllowed = allowedOrigins.some(allowed => {
-      return allowed.toLowerCase() === origin.trim().toLowerCase();
-    });
-    
-    if (isAllowed) {
-      callback(null, true);
-    } else {
-      console.warn(`[CORS Blocked] Request from origin "${origin}" was blocked. Allowed origins:`, allowedOrigins);
-      callback(null, false);
-    }
-  },
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
